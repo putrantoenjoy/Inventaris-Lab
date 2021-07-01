@@ -54,10 +54,12 @@ let editcustomer = require('./components/customer/edit.vue').default;
 // POS Component
 let pos = require('./components/pos/pointofsale.vue').default;
 
-// Order Component
+// Order Pengadaan Component
 let order = require('./components/order/order.vue').default;
 let vieworder = require('./components/order/vieworder.vue').default;
 let searchorder = require('./components/order/search.vue').default;
+let pengadaan = require('./components/order/tambahpengadaan.vue').default;
+
  
    
   
@@ -118,6 +120,7 @@ export const routes = [
  { path: '/order', component: order, name:'order'},
  { path: '/view-order/:id', component: vieworder, name:'view-order'},
  { path: '/searchorder', component: searchorder, name:'searchorder'},
+ { path: '/pengadaan', component: pengadaan, name:'tambah-pengadaan'},
 
 
 
