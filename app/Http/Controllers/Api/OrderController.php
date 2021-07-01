@@ -20,7 +20,7 @@ class OrderController extends Controller
   // }
   
   public function TambahPengadaan(){
-    $pagename = 'TAMBAH PENGADAAn';
+    //$pagename = 'TAMBAH PENGADAAN';
     $data = date('d/m/Y');
     $pengadaan = Pengadaan::all();
     return response()->json($pengadaan, $penga); 
