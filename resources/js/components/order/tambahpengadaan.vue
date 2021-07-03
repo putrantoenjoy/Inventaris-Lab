@@ -3,33 +3,44 @@
 <template>
     
     <div>
-        <br>
         <!--
-        <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" placeholder="Search Here">
-        -->
         <br>
+        <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" placeholder="Search Here">
+        <br>
+        -->
         
         <div class="row">
             <div class="col-lg-12 mb-4">
                 <!-- Simple Tables -->
-                <div class="card">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header">
+                    <div class="py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">TAMBAH PENGADAAN</h6>
                     </div>
-                    <div class="table-responsive">
+                    <div enctype="multipart/form-data" class="user">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH GUDANG">
+                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH COMBO-BOX">
                                 </div>
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" id="exampleInputFirstName" placeholder="PILIH SUPPLIER">
-                            </div> 
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" id="exampleInputFirstName" placeholder="PILIH SUPPLIER">
+                                </div> 
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH STATUS PENGADAAN">
+                                    <select id="status-combo-box" class="form-control" placeholder="PILIH STATUS COMBO-BOX">
+                                        <option value="1">
+                                            status 1
+                                        </option>
+                                        <option value="2">
+                                            status 2
+                                        </option>
+                                        <option value="3">
+                                            status 3
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="exampleInputFirstName" placeholder="UPLOAD DOCUMENT">
@@ -37,19 +48,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-row">
-                                
-                                <div class="col-md-6">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                            <div class="form-row"> 
+                                <div class="col-md-12">
+                                    <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
+                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
+                                    <label class="custom-file-label" for="customFile">PILIH BARANG</label>
                                 </div>
+                                <!--
                                 <div class="col-md-6">
+                                    <img :src="form.photo" style="height: 40px; width: 40px;">
                                 </div>
-                                
+                                -->
                             </div>
                         </div>
-                    </div>
-                    </div>
-                    <div class="card-footer">
                     </div>
                 </div>
             </div>
@@ -110,10 +121,15 @@
         this.$router.push({name: '/'})
       }
     },
+
     data(){
       return{
+        form:{
+            photo: null
+        },
         pengadaans:[],
-        searchTerm:''
+        searchTerm:'',
+        errors:{}
       }
     },
     computed:{
