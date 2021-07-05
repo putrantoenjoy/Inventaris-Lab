@@ -23,7 +23,10 @@
                                     <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH COMBO-BOX">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" id="exampleInputFirstName" placeholder="PILIH SUPPLIER">
+                                    <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id" placeholder="PILIH SUPPLIER">
+                                        
+                                        <option value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}</option>
+                                    </select>
                                 </div> 
                             </div>
                         </div>
@@ -31,28 +34,30 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <select id="status-combo-box" class="form-control" placeholder="PILIH STATUS COMBO-BOX">
+                                        <option value="null" selected hidden disabled>
+                                            PILIH STATUS COMBO-BOX
+                                        </option>
                                         <option value="1">
                                             status 1
                                         </option>
                                         <option value="2">
                                             status 2
                                         </option>
-                                        <option value="3">
-                                            status 3
-                                        </option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="UPLOAD DOCUMENT">
+                                    
+                                    <input type="file" class="form-control" id="customFile" @change="onFileSelected" style="display: none">
+                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
+                                    <label class="form-control" for="customFile">UPLOAD DOKUMEN</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row"> 
                                 <div class="col-md-12">
-                                    <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
-                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
-                                    <label class="custom-file-label" for="customFile">PILIH BARANG</label>
+                                    
+                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH BARANG">
                                 </div>
                                 <!--
                                 <div class="col-md-6">
@@ -129,7 +134,8 @@
         },
         pengadaans:[],
         searchTerm:'',
-        errors:{}
+        errors:{},
+        suppliers:{}
       }
     },
     computed:{
@@ -165,12 +171,15 @@
   },
   created(){
     this.allOrder();
-  } 
-  
+
+    axios.get('/api/supplier/')
+    .then(({data}) => (this.suppliers = data))
+  }
 
   } 
 </script>
 
 
 <style type="text/css">
+    
 </style>

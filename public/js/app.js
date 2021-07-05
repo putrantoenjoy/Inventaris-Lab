@@ -4711,6 +4711,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -4726,7 +4731,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       pengadaans: [],
       searchTerm: '',
-      errors: {}
+      errors: {},
+      suppliers: {}
     };
   },
   computed: {
@@ -4767,7 +4773,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }
 }, "created", function created() {
+  var _this4 = this;
+
   this.allOrder();
+  axios.get('/api/supplier/').then(function (_ref2) {
+    var data = _ref2.data;
+    return _this4.suppliers = data;
+  });
 }));
 
 /***/ }),
@@ -54834,15 +54846,68 @@ var render = function() {
             "div",
             { staticClass: "user", attrs: { enctype: "multipart/form-data" } },
             [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "form-row" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.supplier_id,
+                            expression: "form.supplier_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "exampleFormControlSelect1",
+                          placeholder: "PILIH SUPPLIER"
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "supplier_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.suppliers, function(supplier) {
+                        return _c(
+                          "option",
+                          { attrs: { value: "supplier.id" } },
+                          [_vm._v(_vm._s(supplier.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "col-md-12" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
                     _c("input", {
-                      staticClass: "custom-file-input",
+                      staticClass: "form-control",
+                      staticStyle: { display: "none" },
                       attrs: { type: "file", id: "customFile" },
                       on: { change: _vm.onFileSelected }
                     }),
@@ -54856,14 +54921,16 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "custom-file-label",
+                        staticClass: "form-control",
                         attrs: { for: "customFile" }
                       },
-                      [_vm._v("PILIH BARANG")]
+                      [_vm._v("UPLOAD DOKUMEN")]
                     )
                   ])
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _vm._m(3)
             ]
           )
         ])
@@ -54873,14 +54940,14 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-12 mb-4" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(3),
+          _vm._m(4),
           _vm._v(" "),
           _c("div", { staticClass: "table-responsive" }, [
             _c(
               "table",
               { staticClass: "table align-items-center table-flush" },
               [
-                _vm._m(4),
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -54972,30 +55039,57 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "exampleInputFirstName",
-              placeholder: "PILIH COMBO-BOX"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              id: "exampleInputFirstName",
-              placeholder: "PILIH SUPPLIER"
-            }
-          })
-        ])
-      ])
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "exampleInputFirstName",
+          placeholder: "PILIH COMBO-BOX"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "select",
+        {
+          staticClass: "form-control",
+          attrs: {
+            id: "status-combo-box",
+            placeholder: "PILIH STATUS COMBO-BOX"
+          }
+        },
+        [
+          _c(
+            "option",
+            {
+              attrs: { value: "null", selected: "", hidden: "", disabled: "" }
+            },
+            [
+              _vm._v(
+                "\n                                        PILIH STATUS COMBO-BOX\n                                    "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "1" } }, [
+            _vm._v(
+              "\n                                        status 1\n                                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "2" } }, [
+            _vm._v(
+              "\n                                        status 2\n                                    "
+            )
+          ])
+        ]
+      )
     ])
   },
   function() {
@@ -55004,45 +55098,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              attrs: {
-                id: "status-combo-box",
-                placeholder: "PILIH STATUS COMBO-BOX"
-              }
-            },
-            [
-              _c("option", { attrs: { value: "1" } }, [
-                _vm._v(
-                  "\n                                        status 1\n                                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "2" } }, [
-                _vm._v(
-                  "\n                                        status 2\n                                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "3" } }, [
-                _vm._v(
-                  "\n                                        status 3\n                                    "
-                )
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "col-md-12" }, [
           _c("input", {
             staticClass: "form-control",
             attrs: {
               type: "text",
               id: "exampleInputFirstName",
-              placeholder: "UPLOAD DOCUMENT"
+              placeholder: "PILIH BARANG"
             }
           })
         ])
