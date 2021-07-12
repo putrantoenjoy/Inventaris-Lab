@@ -156,20 +156,20 @@
     },
 
     data(){
-    return {
-      form:{
-        name: null,
-        email: null,
-        phone: null,
-        sallery: null,
-        address: null,
-        photo: null,
-        nid: null,
-        joining_date: null
-      },
-      errors:{}
-    }
-  },
+      return{
+        form:{
+          name: null,
+          email: null,
+          phone: null,
+          sallery: null,
+          address: null,
+          photo: null,
+          nid: null,
+          joining_date: null
+        },
+        errors:{}
+      }
+    },
 
   methods:{
     onFileSelected(event){
@@ -186,7 +186,7 @@
      }
 
     },
-  employeeInsert(){
+      employeeInsert(){
        axios.post('/api/employee',this.form)
        .then(() => {
         this.$router.push({ name: 'employee'})

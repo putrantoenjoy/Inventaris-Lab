@@ -101,7 +101,13 @@ class OrderController extends Controller
    			->get();
    			return response()->json($details);
 
+   }
 
+   public function PilihBarangAll($id){
+     $pilihbarang = DB::table('')
+     ->select('products.product_name','products.product_code','products.product_quantity','products.selling_price','products.product_quantity*products.selling_price');
+
+     return response()->json(pilihbarang);
    }
 
 

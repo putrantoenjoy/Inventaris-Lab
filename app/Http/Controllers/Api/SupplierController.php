@@ -99,7 +99,8 @@ class SupplierController extends Controller
         $data['phone'] = $request->phone;
         $data['shopname'] = $request->shopname;
         $data['address'] = $request->address;
-       
+        //$data['photo'] = $request->photo;
+        
         $image = $request->newphoto;
 
         if ($image) {
