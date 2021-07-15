@@ -17,12 +17,11 @@
                         <h6 class="m-0 font-weight-bold text-primary">TAMBAH PENGADAAN</h6>
                     </div>
                     <form @submit.prevent="pengadaanInsert"  enctype="multipart/form-data" class="user">
+                        
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH GUDANG">
-                                    <!--<select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id" placeholder="PILIH GUDANG">
-                                    <option value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}</option>-->
                                 </div>
                                 <div class="col-md-6">
                                     <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id" placeholder="PILIH SUPPLIER">
@@ -54,6 +53,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
                             <div class="form-row"> 
                                 <div class="col-md-12">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">submit</button>
+                            <button type="submit" class="btn btn-primary" @click.prevent="AddToDetail(getproduct.id)">submit</button>
                         </div>
                     </form>
                 </div>
@@ -97,10 +97,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!--
                                     <tr v-for="order in filtersearch" :key="order.id">
-                                        /*
+                                        
                                         <td> {{ ++$i }} </td>
-                                        */
+                                        
                                         <td> {{ pengadaan.product_name }} </td>
                                         <td> {{ pengadaan.product_code }} $ </td>
                                         <td> {{ pengadaan.product_quantity }} $ </td>
@@ -111,20 +112,36 @@
                                             <a @click="deleteProduct(product.id)" class="btn btn-sm btn-danger"><font color="#ffffff">Delete</font></a>
                                         </td>
                                     </tr>
+                                    -->
+                                    <tr v-for="pengadaan in pengadaans" :key="pengadaan.id">
+                                        <td>{{ pengadaan.product_name }}</td>
+                                        <td>{{ pengadaan.product_code }}</td>
+                                        <td><input type="text" readonly="" style="width: 15px;" :value="pengadaan.product_quantity">
+                                        <button @click.prevent="increment(pengadaan.id)" class="btn btn-sm btn-success">+</button>
+                                        <button @click.prevent="decrement(pengadaan.id)" class="btn btn-sm btn-danger" v-if="pengadaan.product_quantity >= 2">-</button>
+                                        <button class="btn btn-sm btn-danger" v-else="" disabled="">-</button>
+                                        </td>
+                                        <td>{{ pengadaan.selling_price  }}</td>
+                                        <td>{{ pengadaan.sub_total }}</td>
+                                        <td><a @click="removeDetail(pengadaan.id)" class="btn btn-sm btn-primary"><font color="#ffffff">X</font></a></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <br>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="catatan akhir tahun">
-                        </textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="catatan akhir tahun"></textarea>
                         <br>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="jumlah barang">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Jumlah Barang:
+                                        <strong>{{ qty }}</strong>
+                                    </li>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="total harga">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Total Harga:
+                                        <strong>Rp. {{ subtotal }}</strong>
+                                    </li>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +168,6 @@
     data(){
       return{
         form:{
-            photo: null
         },
         pengadaans:[],
         searchTerm:'',
@@ -186,7 +202,6 @@
       };
       reader.readAsDataURL(file);
      }
-
     },
 
     pengadaanInsert(){
@@ -197,9 +212,48 @@
        })
        .catch(error =>this.errors = error.response.data.errors)
      },
-   
+
+    //detail
+    AddToDetail(id){
+    axios.get('/api/AddToDetail/'+id)
+        .then(() => {
+            Reload.$emit('AfterAdd');
+        })
+        .catch()
+    },
+    
+    DetailProduct(){
+        axios.get('/api/detail/product/')
+        .then(({data}) => (this.details = data))
+        .catch()
+    },
+    
+    removeDetail(id){
+    axios.get('/api/remove/detail/'+id)
+        .then(() => {
+            Reload.$emit('AfterAdd');
+        })
+        .catch()
+    },
+    increment(id){
+    axios.get('/api/increment/'+id)
+        .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.success()
+        })
+        .catch()
+    },
+    decrement(id){
+        axios.get('/api/decrement/'+id)
+        .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.success()
+        })
+        .catch() 
+    }, 
 
   },
+
   created(){
     this.allOrder();
 

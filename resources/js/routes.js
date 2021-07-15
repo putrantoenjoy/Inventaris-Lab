@@ -112,16 +112,20 @@ export const routes = [
   { path: '/store-customer', component: storecustomer, name:'store-customer'},
   { path: '/customer', component: customer, name:'customer'},
   { path: '/edit-customer/:id', component: editcustomer, name:'edit-customer'},
-   
- // POS Routes 
- { path: '/pos', component: pos, name:'pos'},
- 
- // Order Routes
- { path: '/order', component: order, name:'order'},
- { path: '/view-order/:id', component: vieworder, name:'view-order'},
- { path: '/searchorder', component: searchorder, name:'searchorder'},
- { path: '/pengadaan', component: pengadaan, name:'tambah-pengadaan'},
-
-
-
+  
+  // POS Routes 
+  { path: '/pos', component: pos, name:'pos'},
+  
+  // Order Routes
+  { path: '/order', component: order, name:'order'},
+  { path: '/view-order/:id', component: vieworder, name:'view-order'},
+  { path: '/searchorder', component: searchorder, name:'searchorder'},
+  
+  // pengadaan
+  //{ path: '/store-pengadaan', component: storepengadaan, name:'store-pengadaan'},
+  { path: '/pengadaan', component: pengadaan, name:'pengadaan'},
+  //{ path: '/edit-pengadaan/:id', component: editpengadaan, name:'edit-pengadaan'},
+  
+  
+  
 ]

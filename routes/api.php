@@ -23,6 +23,9 @@ Route::apiResource('/product', 'Api\ProductController');
 Route::apiResource('/expense', 'Api\ExpenseController');
 Route::apiResource('/customer', 'Api\CustomerController');
 
+//
+Route::apiResource('/pengadaan', 'Api\PengadaanController');
+
 Route::Post('/salary/paid/{id}', 'Api\SalaryController@Paid');
 Route::Get('/salary', 'Api\SalaryController@AllSalary');
 
@@ -55,6 +58,9 @@ Route::Get('/order/details/{id}', 'Api\OrderController@OrderDetails');
 Route::Get('/order/orderdetails/{id}', 'Api\OrderController@OrderDetailsAll');
 
 Route::Post('/search/order', 'Api\PosController@SearchOrderDate');
+// pengadaan
+Route::Get('/increment/{id}', 'Api\PengadaanController@increment');
+Route::Get('/decrement/{id}', 'Api\PengadaanController@decrement');
 
 // Admin Dashboard Route
 

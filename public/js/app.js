@@ -4737,6 +4737,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -4747,9 +4764,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      form: {
-        photo: null
-      },
+      form: {},
       pengadaans: [],
       searchTerm: '',
       errors: {},
@@ -4805,19 +4820,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (error) {
         return _this4.errors = error.response.data.errors;
       });
+    },
+    //detail
+    AddToDetail: function AddToDetail(id) {
+      axios.get('/api/AddToDetail/' + id).then(function () {
+        Reload.$emit('AfterAdd');
+      })["catch"]();
+    },
+    DetailProduct: function DetailProduct() {
+      var _this5 = this;
+
+      axios.get('/api/detail/product/').then(function (_ref2) {
+        var data = _ref2.data;
+        return _this5.details = data;
+      })["catch"]();
+    },
+    removeDetail: function removeDetail(id) {
+      axios.get('/api/remove/detail/' + id).then(function () {
+        Reload.$emit('AfterAdd');
+      })["catch"]();
+    },
+    increment: function increment(id) {
+      axios.get('/api/increment/' + id).then(function () {
+        Reload.$emit('AfterAdd');
+        Notification.success();
+      })["catch"]();
+    },
+    decrement: function decrement(id) {
+      axios.get('/api/decrement/' + id).then(function () {
+        Reload.$emit('AfterAdd');
+        Notification.success();
+      })["catch"]();
     }
   }
 }, "created", function created() {
-  var _this5 = this;
+  var _this6 = this;
 
   this.allOrder();
-  axios.get('/api/supplier/').then(function (_ref2) {
-    var data = _ref2.data;
-    return _this5.suppliers = data;
-  });
-  axios.get('/api/product/').then(function (_ref3) {
+  axios.get('/api/supplier/').then(function (_ref3) {
     var data = _ref3.data;
-    return _this5.products = data;
+    return _this6.suppliers = data;
+  });
+  axios.get('/api/product/').then(function (_ref4) {
+    var data = _ref4.data;
+    return _this6.products = data;
   });
 }));
 
@@ -5044,82 +5090,6 @@ var _created$created$data;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -55025,7 +54995,22 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.AddToDetail(_vm.getproduct.id)
+                      }
+                    }
+                  },
+                  [_vm._v("submit")]
+                )
+              ])
             ]
           )
         ])
@@ -55036,89 +55021,91 @@ var render = function() {
       _c("div", { staticClass: "col-lg-12 mb-4" }, [
         _c("div", [
           _c("div", { staticClass: "card-header" }, [
-            _vm._m(4),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "table-responsive" }, [
               _c(
                 "table",
                 { staticClass: "table align-items-center table-flush" },
                 [
-                  _vm._m(5),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.filtersearch, function(order) {
-                      return _c("tr", { key: order.id }, [
-                        _vm._v(
-                          "\n                                    /*\n                                    "
-                        ),
-                        _c("td", [_vm._v(" " + _vm._s(++_vm.$i) + " ")]),
-                        _vm._v(
-                          "\n                                    */\n                                    "
-                        ),
-                        _c("td", [
-                          _vm._v(" " + _vm._s(_vm.pengadaan.product_name) + " ")
-                        ]),
+                    _vm._l(_vm.pengadaans, function(pengadaan) {
+                      return _c("tr", { key: pengadaan.id }, [
+                        _c("td", [_vm._v(_vm._s(pengadaan.product_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(pengadaan.product_code))]),
                         _vm._v(" "),
                         _c("td", [
-                          _vm._v(
-                            " " + _vm._s(_vm.pengadaan.product_code) + " $ "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            " " + _vm._s(_vm.pengadaan.product_quantity) + " $ "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            " " + _vm._s(_vm.pengadaan.selling_price) + " $  "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(" " + _vm._s(_vm.pengadaan.sub_total) + " ")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-sm btn-primary",
-                                attrs: {
-                                  to: {
-                                    name: "edit-product",
-                                    params: { id: _vm.product.id }
-                                  }
+                          _c("input", {
+                            staticStyle: { width: "15px" },
+                            attrs: { type: "text", readonly: "" },
+                            domProps: { value: pengadaan.product_quantity }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-success",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.increment(pengadaan.id)
                                 }
-                              },
-                              [_vm._v("Edit")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-sm btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteProduct(_vm.product.id)
+                              }
+                            },
+                            [_vm._v("+")]
+                          ),
+                          _vm._v(" "),
+                          pengadaan.product_quantity >= 2
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-sm btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.decrement(pengadaan.id)
+                                    }
                                   }
+                                },
+                                [_vm._v("-")]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-sm btn-danger",
+                                  attrs: { disabled: "" }
+                                },
+                                [_vm._v("-")]
+                              )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(pengadaan.selling_price))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(pengadaan.sub_total))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-primary",
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeDetail(pengadaan.id)
                                 }
-                              },
-                              [
-                                _c("font", { attrs: { color: "#ffffff" } }, [
-                                  _vm._v("Delete")
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
+                              }
+                            },
+                            [
+                              _c("font", { attrs: { color: "#ffffff" } }, [
+                                _vm._v("X")
+                              ])
+                            ],
+                            1
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -55140,7 +55127,41 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _vm._m(6)
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "li",
+                    {
+                      staticClass:
+                        "list-group-item d-flex justify-content-between align-items-center"
+                    },
+                    [
+                      _vm._v(
+                        "Jumlah Barang:\n                                    "
+                      ),
+                      _c("strong", [_vm._v(_vm._s(_vm.qty))])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "li",
+                    {
+                      staticClass:
+                        "list-group-item d-flex justify-content-between align-items-center"
+                    },
+                    [
+                      _vm._v(
+                        "Total Harga:\n                                    "
+                      ),
+                      _c("strong", [_vm._v("Rp. " + _vm._s(_vm.subtotal))])
+                    ]
+                  )
+                ])
+              ])
+            ])
           ])
         ])
       ])
@@ -55226,18 +55247,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("submit")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "div",
       {
@@ -55268,28 +55277,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("SUBTOTAL")]),
         _vm._v(" "),
         _c("th", [_vm._v("ACTION")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "jumlah barang" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "total harga" }
-          })
-        ])
       ])
     ])
   }
@@ -55735,7 +55722,7 @@ var render = function() {
                         "list-group-item d-flex justify-content-between align-items-center"
                     },
                     [
-                      _vm._v("Total Quantity:\n  "),
+                      _vm._v("Total Quantity:\n                "),
                       _c("strong", [_vm._v(_vm._s(_vm.qty))])
                     ]
                   ),
@@ -55747,7 +55734,7 @@ var render = function() {
                         "list-group-item d-flex justify-content-between align-items-center"
                     },
                     [
-                      _vm._v("Sub Total:\n  "),
+                      _vm._v("Sub Total:\n                "),
                       _c("strong", [_vm._v(_vm._s(_vm.subtotal) + " $")])
                     ]
                   ),
@@ -55759,7 +55746,7 @@ var render = function() {
                         "list-group-item d-flex justify-content-between align-items-center"
                     },
                     [
-                      _vm._v("Vat:\n  "),
+                      _vm._v("Vat:\n                "),
                       _c("strong", [_vm._v(_vm._s(_vm.vats.vat) + " %")])
                     ]
                   ),
@@ -55771,7 +55758,7 @@ var render = function() {
                         "list-group-item d-flex justify-content-between align-items-center"
                     },
                     [
-                      _vm._v("Total :\n  "),
+                      _vm._v("Total :\n                "),
                       _c("strong", [
                         _vm._v(
                           _vm._s(
@@ -78514,11 +78501,14 @@ var routes = [{
   path: '/searchorder',
   component: searchorder,
   name: 'searchorder'
-}, {
+}, // pengadaan
+//{ path: '/store-pengadaan', component: storepengadaan, name:'store-pengadaan'},
+{
   path: '/pengadaan',
   component: pengadaan,
-  name: 'tambah-pengadaan'
-}];
+  name: 'pengadaan'
+} //{ path: '/edit-pengadaan/:id', component: editpengadaan, name:'edit-pengadaan'},
+];
 
 /***/ }),
 
