@@ -8,6 +8,6 @@ class Pengadaan extends Model
 {
     //
     protected $fillable = [
-        'product_name', 'product_code', 'product_quantity','selling_price','sub_total'
+        'product_name', 'product_id', 'product_code', 'product_quantity','selling_price','sub_total'
     ];
 }

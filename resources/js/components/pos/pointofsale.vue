@@ -190,7 +190,7 @@
          return product.product_name.match(this.searchTerm)
       }) 
       },
-       getfiltersearch(){
+      getfiltersearch(){
       return this.getproducts.filter(getproduct => {
          return getproduct.product_name.match(this.getsearchTerm)
        }) 
@@ -237,7 +237,7 @@
       .catch()
   },
   increment(id){
-  axios.get('/api/increment/'+id)
+  axios.get('/api/increment/cart/'+id)
       .then(() => {
         Reload.$emit('AfterAdd');
         Notification.success()
@@ -245,7 +245,7 @@
       .catch()
   },
    decrement(id){
-    axios.get('/api/decrement/'+id)
+    axios.get('/api/decrement/cart/'+id)
       .then(() => {
         Reload.$emit('AfterAdd');
         Notification.success()

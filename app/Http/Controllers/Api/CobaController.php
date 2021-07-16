@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 
-class PengadaanController extends Controller
+class CobaController extends Controller
 {
     //detail pengadaan
-    public function AddToDetail(Request $request, $id){
+    public function AddToPengadaan(Request $request, $id){
     	$product = DB::table('products')->where('id',$id)->first();
 
     	$check = DB::table('pengadaans')->where('product_id',$id)->first();

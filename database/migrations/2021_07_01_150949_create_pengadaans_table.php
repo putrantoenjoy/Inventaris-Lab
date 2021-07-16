@@ -14,7 +14,8 @@ class CreatePengadaansTable extends Migration
     public function up()
     {
         Schema::create('pengadaans', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
+            $table->string('product_id');
             $table->string('product_name')->nullable();
             $table->string('product_code')->nullable();
             $table->string('product_quantity')->nullable();

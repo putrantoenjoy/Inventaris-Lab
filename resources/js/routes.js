@@ -59,6 +59,7 @@ let order = require('./components/order/order.vue').default;
 let vieworder = require('./components/order/vieworder.vue').default;
 let searchorder = require('./components/order/search.vue').default;
 let pengadaan = require('./components/order/tambahpengadaan.vue').default;
+let coba = require('./components/order/coba.vue').default;
 
  
    
@@ -127,5 +128,6 @@ export const routes = [
   //{ path: '/edit-pengadaan/:id', component: editpengadaan, name:'edit-pengadaan'},
   
   
+  { path: '/coba', component: coba, name:'coba'},
   
 ]
