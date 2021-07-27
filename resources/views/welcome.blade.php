@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="{{ asset('backend/img/logo/logo.png')}}" rel="icon">
-  <title>Easy Learning Invertory - Dashboard</title>
+  <title>Inventaris Lab</title>
  <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css')}}">
 
   <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
