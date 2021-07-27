@@ -2,10 +2,10 @@
 
 
 Route::group([
-
+    
     'middleware' => 'api',
     'prefix' => 'auth'
-
+    
 ], function ($router) {
 
     Route::post('login', 'AuthController@login');
@@ -13,7 +13,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-
+    
 });
 
 Route::apiResource('/employee', 'Api\EmployeeController');
@@ -22,6 +22,13 @@ Route::apiResource('/category', 'Api\CategoryController');
 Route::apiResource('/product', 'Api\ProductController');
 Route::apiResource('/expense', 'Api\ExpenseController');
 Route::apiResource('/customer', 'Api\CustomerController');
+Route::apiResource('/pengadaan', 'Api\PengadaanController');
+
+//add to pengadaan detail
+Route::Get('/addToDetail/{id}', 'Api\PengadaanDetailController@AddToDetail');
+Route::Get('/increment/pengadaan/{id}', 'Api\PengadaanDetailController@increment');
+Route::Get('/decrement/pengadaan/{id}', 'Api\PengadaanDetailController@decrement');
+Route::Get('/remove/pengadaan/{id}', 'Api\PengadaanDetailController@removePengadaan');
 
 Route::Post('/salary/paid/{id}', 'Api\SalaryController@Paid');
 Route::Get('/salary', 'Api\SalaryController@AllSalary');

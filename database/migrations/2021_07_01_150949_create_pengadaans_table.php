@@ -15,10 +15,17 @@ class CreatePengadaansTable extends Migration
     {
         Schema::create('pengadaans', function (Blueprint $table) {
             $table->id();
+            $table->string('productid_pengadaan')->nullable();
             $table->string('product_name')->nullable();
             $table->string('product_code')->nullable();
             $table->string('product_quantity')->nullable();
             $table->string('selling_price')->nullable();
+            $table->string('supplierid_pengadaan')->nullable();
+            $table->string('supplier_name')->nullable();
+            $table->string('gudangid_pengadaan')->nullable();
+            $table->string('nama_gudang')->nullable();
+            $table->string('status_pengadaan')->nullable();
+            $table->string('document')->nullable();
             $table->string('sub_total')->nullable();
             $table->timestamps();
         });
