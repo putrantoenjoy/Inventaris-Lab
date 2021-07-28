@@ -32,18 +32,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>sabun</td>
-                  <td>Kode</td>
-                  <td>Gudang</td>
-                  <td>supplier</td>
-                  <td>Status</td>
-                  <td>Kode</td>
-                  <td>Gudang</td>
-                  <td>supplier</td>
-                  <td>Status</td>
-                </tr>
-                <tr>
+                <tr v-for="order in filtersearch" :key="order.id">
+                  <td> {{ order.name }}</td>
+                  <td> {{ order.total }}</td>
+                  <td> {{ order.pay }}</td>
+                  <td> {{ order.due }}</td>
+                  <td> {{ order.payby }}</td>
                 </tr>
               </tbody>
             </table>

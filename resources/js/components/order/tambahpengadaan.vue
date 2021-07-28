@@ -3,7 +3,10 @@
 <template>
     
     <div>
-        
+        <div>
+            <router-link to="/order" class="btn btn-primary">Order Pengadaan</router-link>
+        </div>
+        <br>
         <div class="row">
             <div class="col-lg-12 mb-4">
                 <!-- Simple Tables -->
@@ -11,7 +14,7 @@
                     <div class="py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">TAMBAH PENGADAAN</h6>
                     </div>
-                    <form   enctype="multipart/form-data" class="user">
+                    <form @submit.prevent="pengadaanInsert" enctype="multipart/form-data" class="user">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-4">
@@ -49,21 +52,17 @@
                                             PILIH STATUS PENGADAAN
                                         </option>
                                         <option value="1">
-                                            benda cair
+                                            belum terjual
                                         </option>
                                         <option value="2">
-                                            benda padat
-                                        </option>
-                                        <option value="3">
-                                            benda gas
+                                            terjual
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlSelect1">Upload Document</label>
-                                    <label class="form-control" for="customFile" placeholder="Upload Document">{{form.photo ? form.photo.name :''}}</label>
+                                    <label class="form-control" for="customFile" placeholder="Upload Document"></label>
                                     <input type="file" class="form-control" id="customFile" @change="onFileSelected" style="display: none">
-                                    <!-- <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small> -->
                                     
                                 </div>
                                 <div class="col-md-2">
@@ -86,32 +85,12 @@
                         </div>
                         <div class="form-group">
                             <!-- <button type="submit" class="btn btn-primary">submit</button> -->
-                            <button class="btn btn-primary" v-for="product in products" @click.prevent="AddToDetail(product.id)">{{product.product_name}}</button>
+                            <button class="btn btn-primary" v-for="product in products" @click.prevent="AddToDetail(product.id)" :key="product.id">{{product.product_name}}</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-6" v-for="product in products" :key="product.id">
-                <button class="btn btn-sm" @click.prevent="AddToDetail(product.id)">
-                <div class="card" style="width: 8.5rem; margin-bottom: 5px;">
-                    <img :src="product.image" id="em_photo" class="card-img-top">
-                    <div class="card-body">
-                    <h6 class="card-title">{{ product.product_name }}</h6>
-                    <span class="badge badge-success" v-if="product.product_quantity  >= 1 ">Available {{ product.product_quantity }}  </span> 
-                    <span class="badge badge-danger" v-else=" ">Stock Out </span>
-                    </div>
-                </div>
-                </button>
-            </div>
-        </div>
-        <form @submit.prevent="AddToDetail(product.id)">
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option value="product.product_name" v-for="product in products" :key="product.id">{{ product.product_name }}</option>
-            </select>
-            <button class="btn btn-sm" >submit</button>
-        </form> -->
         
         <div class="row">
             <div class="col-lg-12 mb-4">
@@ -163,6 +142,11 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center">Total Harga:
                                         <strong>Rp. {{ subtotal }}</strong>
                                     </li>
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary">submit</button>
                                 </div>
                             </div>
                         </div>
@@ -255,14 +239,14 @@
                 }
             },
 
-            // pengadaanInsert(){
-            //     axios.post('/api/pengadaan',this.form)
-            //     .then(() => {
-            //     this.$router.push({ name: 'pengadaan'})
-            //     Notification.success()
-            //     })
-            //     .catch(error =>this.errors = error.response.data.errors)
-            // },
+            pengadaanInsert(){
+                axios.post('/api/pengadaan',this.form)
+                .then(() => {
+                this.$router.push({ name: 'pengadaan'})
+                Notification.success()
+                })
+                .catch(error =>this.errors = error.response.data.errors)
+            },
 
             //detail
             AddToDetail(id){
