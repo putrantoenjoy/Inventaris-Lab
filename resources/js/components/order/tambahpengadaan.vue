@@ -114,7 +114,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="pengadaan in filtersearch" :key="pengadaan.id">
-                                        <td>{{ pengadaan.product_name }}</td>
+                                        <td >{{ pengadaan.product_name }}</td>
                                         <td>{{ pengadaan.product_code }}</td>
                                         <td><input type="text" readonly="" style="width: 40px;" :value="pengadaan.product_quantity">
                                             <button @click.prevent="increment(pengadaan.id)" class="btn btn-sm btn-success">+</button>

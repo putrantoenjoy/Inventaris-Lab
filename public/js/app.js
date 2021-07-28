@@ -4385,6 +4385,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -54638,11 +54653,7 @@ var staticRenderFns = [
               [
                 _c("thead", { staticClass: "thead-light" }, [
                   _c("tr", [
-                    _c("th", [_vm._v("Nama Produk")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Kode Produk")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Gudang")]),
+                    _c("th", [_vm._v("Nama Gudang")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Supplier")]),
                     _vm._v(" "),
@@ -54650,42 +54661,26 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("th", [_vm._v("Dokumen")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Keterangan")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Subtotal")]),
-                    _vm._v(" "),
                     _c("th", [_vm._v("Action")])
                   ])
                 ]),
                 _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [_vm._v("sabun")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Kode")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Gudang")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("supplier")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Status")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Kode")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Gudang")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("supplier")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Status")])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr")
-                ])
+                _c("tbody")
               ]
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-footer" })
+          _c("div", { staticClass: "card-footer" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("button", { staticClass: "btn btn-primary btn-block" }, [
+                    _vm._v("View")
+                  ])
+                ])
+              ])
+            ])
+          ])
         ])
       ])
     ])

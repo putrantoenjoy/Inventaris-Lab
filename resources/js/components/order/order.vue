@@ -20,35 +20,50 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th>Nama Produk</th>
-                  <th>Kode Produk</th>
-                  <th>Gudang</th>
+                  <th>Nama Gudang</th>
                   <th>Supplier</th>
                   <th>Status Pengadaan</th>
                   <th>Dokumen</th>
-                  <th>Keterangan</th>
-                  <th>Subtotal</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <!-- <tr>
                   <td>sabun</td>
                   <td>Kode</td>
                   <td>Gudang</td>
                   <td>supplier</td>
-                  <td>Status</td>
-                  <td>Kode</td>
-                  <td>Gudang</td>
-                  <td>supplier</td>
-                  <td>Status</td>
-                </tr>
-                <tr>
-                </tr>
+                  <td>
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Hapus</button>
+                  </td>
+                </tr> -->
               </tbody>
             </table>
           </div>
           <div class="card-footer">
+            <div class="form-group">
+              <div class="form-row">
+                  <!-- <div class="col-md-5">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">Catatan:
+                          <strong>{{ catatan }}</strong>
+                      </li>
+                  </div>
+                  <div class="col-md-3">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">Jumlah Barang:
+                          <strong>{{ qty }}</strong>
+                      </li>
+                  </div>
+                  <div class="col-md-3">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">Total Harga:
+                          <strong>Rp. {{ subtotal }}</strong>
+                      </li>
+                  </div> -->
+                  <div class="col-md-12">
+                      <button class="btn btn-primary btn-block">View</button>
+                  </div>
+              </div>
+          </div>
           </div>
         </div>
       </div>
