@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateOrderPengadaansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,28 +13,24 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_pengadaans', function (Blueprint $table) {
             $table->id('id');
-            $table->integer('nama_gudang')->nullable();
+            $table->string('pengadaan_id')->nullable();
+            $table->string('nama_gudang')->nullable();
             $table->string('supplier')->nullable();
             $table->string('status_pengadaan')->nullable();
-            $table->string('dokumen')->nullable();
-            $table->string('product')->nullable();
-            $table->string('product_kode')->nullable();
-            $table->string('jumlah_product')->nullable();
-            $table->string('harga')->nullable();
-            $table->string('subtotal')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
 
-    /** 
+    /**
      * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_pengadaans');
     }
 }

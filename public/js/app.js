@@ -2862,39 +2862,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = (_created$data$created = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -4311,6 +4278,250 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/edit.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/edit.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _created$data$compute;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = (_created$data$compute = {
+  created: function created() {
+    if (!User.loggedIn()) {
+      this.$router.push({
+        name: '/'
+      });
+    }
+  },
+  data: function data() {
+    return {
+      form: {
+        supplier: '',
+        nama_gudang: '',
+        status_pengadaan: '',
+        document: '',
+        photo: '',
+        newphoto: ''
+      },
+      pengadaans: [],
+      searchTerm: '',
+      errors: {},
+      suppliers: {},
+      order_pengadaans: {}
+    };
+  },
+  computed: {
+    filtersearch: function filtersearch() {
+      var _this = this;
+
+      return this.pengadaans.filter(function (pengadaan) {
+        return pengadaan.product_name.match(_this.searchTerm);
+      });
+    },
+    getfiltersearch: function getfiltersearch() {
+      var _this2 = this;
+
+      return this.getproducts.filter(function (getproduct) {
+        return getproduct.product_name.match(_this2.getsearchTerm);
+      });
+    },
+    qty: function qty() {
+      var sum = 0;
+
+      for (var i = 0; i < this.pengadaans.length; i++) {
+        sum += parseFloat(this.pengadaans[i].product_quantity);
+      }
+
+      return sum;
+    },
+    subtotal: function subtotal() {
+      var sum = 0;
+
+      for (var i = 0; i < this.pengadaans.length; i++) {
+        sum += parseFloat(this.pengadaans[i].product_quantity) * parseFloat(this.pengadaans[i].selling_price);
+      }
+
+      return sum;
+    }
+  }
+}, _defineProperty(_created$data$compute, "created", function created() {
+  var _this3 = this;
+
+  var id = this.$route.params.id;
+  axios.get('/api/orderpengadaan/' + id).then(function (_ref) {
+    var data = _ref.data;
+    return _this3.form = data;
+  })["catch"](console.log('error'));
+  axios.get('/api/supplier/').then(function (_ref2) {
+    var data = _ref2.data;
+    return _this3.suppliers = data;
+  });
+}), _defineProperty(_created$data$compute, "methods", {
+  onFileSelected: function onFileSelected(event) {
+    var _this4 = this;
+
+    var file = event.target.files[0];
+
+    if (file.size > 1048770) {
+      Notification.image_validation();
+    } else {
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this4.form.newphoto = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  },
+  pengadaanUpdate: function pengadaanUpdate() {
+    var _this5 = this;
+
+    var id = this.$route.params.id;
+    axios.patch('/api/orderpengadaan/' + id, this.form).then(function () {
+      _this5.$router.push({
+        name: 'order'
+      });
+
+      Notification.success();
+    })["catch"](function (error) {
+      return _this5.errors = error.response.data.errors;
+    });
+  } //detail
+  // AddToDetail(id){
+  // axios.get('/api/addToDetail/'+id)
+  //     .then(() => {
+  //         Reload.$emit('AfterAdd');
+  //         Notification.success()
+  //     })
+  //     .catch()
+  // },
+  // allPengadaan(){
+  //     axios.get('/api/pengadaan/')
+  //     .then(({data}) => (this.pengadaans = data))
+  //     .catch()
+  // },
+  // removeDetail(id){
+  // axios.get('/api/remove/pengadaan/'+id)
+  //     .then(() => {
+  //         Reload.$emit('AfterAdd');
+  //     })
+  //     .catch()
+  // },
+  // increment(id){
+  // axios.get('/api/increment/pengadaan/'+id)
+  //     .then(() => {
+  //         Reload.$emit('AfterAdd');
+  //         Notification.success()
+  //     })
+  //     .catch()
+  // },
+  // decrement(id){
+  //     axios.get('/api/decrement/pengadaan/'+id)
+  //     .then(() => {
+  //         Reload.$emit('AfterAdd');
+  //         Notification.success()
+  //     })
+  //     .catch() 
+  // }, 
+
+}), _created$data$compute);
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/order.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/order.vue?vue&type=script&lang=js& ***!
@@ -4400,6 +4611,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -4410,7 +4625,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      orders: [],
+      order_pengadaans: [],
       searchTerm: ''
     };
   },
@@ -4418,23 +4633,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     filtersearch: function filtersearch() {
       var _this = this;
 
-      return this.orders.filter(function (order) {
-        return order.name.match(_this.searchTerm);
+      return this.order_pengadaans.filter(function (orderpengadaan) {
+        return orderpengadaan.nama_gudang.match(_this.searchTerm);
       });
     }
   },
   methods: {
-    allOrder: function allOrder() {
+    allOrderPengadaan: function allOrderPengadaan() {
       var _this2 = this;
 
-      axios.get('/api/orders/').then(function (_ref) {
+      axios.get('/api/orderpengadaan/').then(function (_ref) {
         var data = _ref.data;
-        return _this2.orders = data;
+        return _this2.order_pengadaans = data;
       })["catch"]();
+    },
+    deleteOrderPengadaan: function deleteOrderPengadaan(id) {
+      var _this3 = this;
+
+      Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Kamu tidak akan mendapatkannya kembali",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus sekarang!',
+        cancelButtonText: 'Batal'
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]('/api/orderpengadaan/' + id).then(function () {
+            _this3.order_pengadaans = _this3.order_pengadaans.filter(function (orderpengadaan) {
+              return orderpengadaan.id != id;
+            });
+          })["catch"](function () {
+            _this3.$router.push({
+              name: 'order'
+            });
+          });
+          Swal.fire('Terhapus!', 'Gudang telah dihapus.', 'sukses');
+        }
+      });
     }
   }
 }, "created", function created() {
-  this.allOrder();
+  this.allOrderPengadaan();
 }));
 
 /***/ }),
@@ -4774,6 +5016,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = (_created$created$data = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -4792,9 +5035,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 }), _defineProperty(_created$created$data, "data", function data() {
   return {
     form: {
-      supplier_id: null,
-      pilih_gudang: null,
-      input_document: null,
+      supplier: null,
+      nama_gudang: null,
       status_pengadaan: null,
       photo: null
     },
@@ -4846,15 +5088,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     if (file.size > 1048770) {
       Notification.image_validation();
-      console.log(event.target.result);
-      console.log(event);
     } else {
       var reader = new FileReader();
 
       reader.onload = function (event) {
         _this4.form.photo = event.target.result;
         console.log(event.target.result);
-        console.log(event);
       };
 
       reader.readAsDataURL(file);
@@ -4863,12 +5102,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   pengadaanInsert: function pengadaanInsert() {
     var _this5 = this;
 
-    axios.post('/api/pengadaan', this.form).then(function () {
-      _this5.$router.push({
-        name: 'pengadaan'
-      });
-
+    axios.post('/api/pengadaaninsert', this.form).then(function () {
       Notification.success();
+
+      _this5.$router.push({
+        name: 'order'
+      });
     })["catch"](function (error) {
       return _this5.errors = error.response.data.errors;
     });
@@ -5679,7 +5918,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_name: null,
         product_code: null,
         category_id: null,
-        supplier_id: 1,
+        supplier_id: null,
         root: null,
         buying_price: null,
         selling_price: null,
@@ -54592,6 +54831,352 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/edit.vue?vue&type=template&id=0d3f6b36&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/edit.vue?vue&type=template&id=0d3f6b36& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      [
+        _c(
+          "router-link",
+          { staticClass: "btn btn-primary", attrs: { to: "/order" } },
+          [_vm._v("Kembali")]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12 mb-4" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.pengadaanUpdate($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Pilih Gudang")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.nama_gudang,
+                            expression: "form.nama_gudang"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "exampleFormControlSelect1",
+                          placeholder: "PILIH STATUS PENGADAAN"
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "nama_gudang",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              value: "null",
+                              selected: "",
+                              hidden: "",
+                              disabled: ""
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        PILIH GUDANG\n                                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Gudang 1" } }, [
+                          _vm._v(
+                            "\n                                        Gudang 1\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Gudang 2" } }, [
+                          _vm._v(
+                            "\n                                        Gudang 2\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Gudang 3" } }, [
+                          _vm._v(
+                            "\n                                        Gudang 3\n                                    "
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Product Supplier")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.supplier,
+                            expression: "form.supplier"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "exampleFormControlSelect1" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "supplier",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.suppliers, function(supplier) {
+                        return _c("option", { key: supplier.id }, [
+                          _vm._v(_vm._s(supplier.name))
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Pilih Status Pengadaan")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.status_pengadaan,
+                            expression: "form.status_pengadaan"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "exampleFormControlSelect1",
+                          placeholder: "PILIH STATUS PENGADAAN"
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "status_pengadaan",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              value: "null",
+                              selected: "",
+                              hidden: "",
+                              disabled: ""
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        PILIH STATUS PENGADAAN\n                                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "lama" } }, [
+                          _vm._v(
+                            "\n                                        lama\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "baru" } }, [
+                          _vm._v(
+                            "\n                                        baru\n                                    "
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Upload Document")]
+                    ),
+                    _vm._v(" "),
+                    _c("label", {
+                      staticClass: "form-control",
+                      attrs: {
+                        for: "customFile",
+                        placeholder: "Upload Document"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      staticStyle: { display: "none" },
+                      attrs: { type: "file", id: "customFile" },
+                      on: { change: _vm.onFileSelected }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticStyle: { height: "50px", width: "50px" },
+                      attrs: { src: _vm.form.document }
+                    })
+                  ])
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.pengadaanUpdate($event)
+                }
+              }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-block",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Update")]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "py-3 d-flex flex-row align-items-center justify-content-between"
+      },
+      [
+        _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+          _vm._v("TAMBAH PENGADAAN")
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/order.vue?vue&type=template&id=159f145c&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/order.vue?vue&type=template&id=159f145c& ***!
@@ -54622,7 +55207,87 @@ var render = function() {
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12 mb-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.order_pengadaans, function(orderpengadaan) {
+                    return _c("tr", { key: orderpengadaan.id }, [
+                      _c("td", [_vm._v(_vm._s(orderpengadaan.nama_gudang))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(orderpengadaan.status_pengadaan))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(orderpengadaan.supplier))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("img", {
+                          attrs: { src: orderpengadaan.photo, id: "em_photo" }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "btn btn-sm btn-primary",
+                              attrs: {
+                                to: {
+                                  name: "edit-order",
+                                  params: { id: orderpengadaan.id }
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteOrderPengadaan(
+                                    orderpengadaan.id
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("font", { attrs: { color: "#ffffff" } }, [
+                                _vm._v("Hapus")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -54630,55 +55295,47 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12 mb-4" }, [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "card-header py-3 d-flex flex-row align-items-center justify-content-between"
-            },
-            [
-              _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-                _vm._v("Order Pengadaan")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              { staticClass: "table align-items-center table-flush" },
-              [
-                _c("thead", { staticClass: "thead-light" }, [
-                  _c("tr", [
-                    _c("th", [_vm._v("Nama Gudang")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Supplier")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Status Pengadaan")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Dokumen")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Action")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody")
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("div", { staticClass: "form-row" }, [
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("button", { staticClass: "btn btn-primary btn-block" }, [
-                    _vm._v("View")
-                  ])
-                ])
-              ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+      },
+      [
+        _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+          _vm._v("Order Pengadaan")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Nama Gudang")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Supplier")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status Pengadaan")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Dokumen")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("button", { staticClass: "btn btn-primary btn-block" }, [
+              _vm._v("View")
             ])
           ])
         ])
@@ -54951,8 +55608,6 @@ var render = function() {
           _c(
             "form",
             {
-              staticClass: "user",
-              attrs: { enctype: "multipart/form-data" },
               on: {
                 submit: function($event) {
                   $event.preventDefault()
@@ -54977,8 +55632,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.pilih_gudang,
-                            expression: "form.pilih_gudang"
+                            value: _vm.form.nama_gudang,
+                            expression: "form.nama_gudang"
                           }
                         ],
                         staticClass: "form-control",
@@ -54998,7 +55653,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.form,
-                              "pilih_gudang",
+                              "nama_gudang",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -55024,19 +55679,19 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
+                        _c("option", { attrs: { value: "Gudang 1" } }, [
                           _vm._v(
                             "\n                                        Gudang 1\n                                    "
                           )
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [
+                        _c("option", { attrs: { value: "Gudang 2" } }, [
                           _vm._v(
                             "\n                                        Gudang 2\n                                    "
                           )
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "3" } }, [
+                        _c("option", { attrs: { value: "Gudang 3" } }, [
                           _vm._v(
                             "\n                                        Gudang 3\n                                    "
                           )
@@ -55059,8 +55714,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.supplier_id,
-                            expression: "form.supplier_id"
+                            value: _vm.form.supplier,
+                            expression: "form.supplier"
                           }
                         ],
                         staticClass: "form-control",
@@ -55077,7 +55732,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.form,
-                              "supplier_id",
+                              "supplier",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -55086,14 +55741,9 @@ var render = function() {
                         }
                       },
                       _vm._l(_vm.suppliers, function(supplier) {
-                        return _c(
-                          "option",
-                          {
-                            key: supplier.id,
-                            attrs: { value: "supplier.name" }
-                          },
-                          [_vm._v(_vm._s(supplier.name))]
-                        )
+                        return _c("option", { key: supplier.id }, [
+                          _vm._v(_vm._s(supplier.name))
+                        ])
                       }),
                       0
                     )
@@ -55164,15 +55814,15 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
+                        _c("option", { attrs: { value: "lama" } }, [
                           _vm._v(
-                            "\n                                        belum terjual\n                                    "
+                            "\n                                        lama\n                                    "
                           )
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [
+                        _c("option", { attrs: { value: "baru" } }, [
                           _vm._v(
-                            "\n                                        terjual\n                                    "
+                            "\n                                        baru\n                                    "
                           )
                         ])
                       ]
@@ -55180,26 +55830,26 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
-                    _c(
-                      "label",
-                      { attrs: { for: "exampleFormControlSelect1" } },
-                      [_vm._v("Upload Document")]
-                    ),
-                    _vm._v(" "),
-                    _c("label", {
-                      staticClass: "form-control",
-                      attrs: {
-                        for: "customFile",
-                        placeholder: "Upload Document"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c("input", {
-                      staticClass: "form-control",
-                      staticStyle: { display: "none" },
+                      staticClass: "custom-file-input",
                       attrs: { type: "file", id: "customFile" },
                       on: { change: _vm.onFileSelected }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.photo
+                      ? _c("small", { staticClass: "text-danger" }, [
+                          _vm._v(" " + _vm._s(_vm.errors.photo[0]) + " ")
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-file-label",
+                        attrs: { for: "customFile" }
+                      },
+                      [_vm._v("Choose file")]
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2" }, [
@@ -55245,10 +55895,8 @@ var render = function() {
             ]
           )
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "col-lg-12 mb-4" }, [
         _c("div", [
           _c("div", { staticClass: "card-header" }, [
@@ -55392,9 +56040,29 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-2" }),
-                _vm._v(" "),
-                _vm._m(4)
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.pengadaanInsert($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-block",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Submit")]
+                      )
+                    ]
+                  )
+                ])
               ])
             ])
           ])
@@ -55470,14 +56138,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("ACTION")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("submit")])
     ])
   }
 ]
@@ -77060,6 +77720,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/order/edit.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/order/edit.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _edit_vue_vue_type_template_id_0d3f6b36___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit.vue?vue&type=template&id=0d3f6b36& */ "./resources/js/components/order/edit.vue?vue&type=template&id=0d3f6b36&");
+/* harmony import */ var _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit.vue?vue&type=script&lang=js& */ "./resources/js/components/order/edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _edit_vue_vue_type_template_id_0d3f6b36___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _edit_vue_vue_type_template_id_0d3f6b36___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/order/edit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/order/edit.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/order/edit.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/order/edit.vue?vue&type=template&id=0d3f6b36&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/order/edit.vue?vue&type=template&id=0d3f6b36& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_0d3f6b36___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=template&id=0d3f6b36& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/edit.vue?vue&type=template&id=0d3f6b36&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_0d3f6b36___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_0d3f6b36___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/order/order.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/order/order.vue ***!
@@ -78549,6 +79278,8 @@ var pos = __webpack_require__(/*! ./components/pos/pointofsale.vue */ "./resourc
 
 var order = __webpack_require__(/*! ./components/order/order.vue */ "./resources/js/components/order/order.vue")["default"];
 
+var editorder = __webpack_require__(/*! ./components/order/edit.vue */ "./resources/js/components/order/edit.vue")["default"];
+
 var vieworder = __webpack_require__(/*! ./components/order/vieworder.vue */ "./resources/js/components/order/vieworder.vue")["default"];
 
 var searchorder = __webpack_require__(/*! ./components/order/search.vue */ "./resources/js/components/order/search.vue")["default"];
@@ -78693,6 +79424,10 @@ var routes = [{
   path: '/order',
   component: order,
   name: 'order'
+}, {
+  path: '/edit-order',
+  component: editorder,
+  name: 'edit-order'
 }, {
   path: '/view-order/:id',
   component: vieworder,

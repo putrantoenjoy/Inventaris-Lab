@@ -14,22 +14,22 @@
                     <div class="py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">TAMBAH PENGADAAN</h6>
                     </div>
-                    <form @submit.prevent="pengadaanInsert" enctype="multipart/form-data" class="user">
+                    <form @submit.prevent="pengadaanInsert">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <label for="exampleFormControlSelect1">Pilih Gudang</label>
-                                    <select id="exampleFormControlSelect1" class="form-control" placeholder="PILIH STATUS PENGADAAN" v-model="form.pilih_gudang">
+                                    <select id="exampleFormControlSelect1" class="form-control" placeholder="PILIH STATUS PENGADAAN" v-model="form.nama_gudang">
                                         <option value="null" selected hidden disabled>
                                             PILIH GUDANG
                                         </option>
-                                        <option value="1">
+                                        <option value="Gudang 1">
                                             Gudang 1
                                         </option>
-                                        <option value="2">
+                                        <option value="Gudang 2">
                                             Gudang 2
                                         </option>
-                                        <option value="3">
+                                        <option value="Gudang 3">
                                             Gudang 3
                                         </option>
                                     </select>
@@ -37,8 +37,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="exampleFormControlSelect1">Product Supplier</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
-                                    <option value="supplier.name" v-for="supplier in suppliers" :key="supplier.id">{{ supplier.name }}</option>
+                                    <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier">
+                                    <option v-for="supplier in suppliers" :key="supplier.id">{{ supplier.name }}</option>
                                     </select>
                                 </div> 
                             </div>
@@ -51,19 +51,23 @@
                                         <option value="null" selected hidden disabled>
                                             PILIH STATUS PENGADAAN
                                         </option>
-                                        <option value="1">
-                                            belum terjual
+                                        <option value="lama">
+                                            lama
                                         </option>
-                                        <option value="2">
-                                            terjual
+                                        <option value="baru">
+                                            baru
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleFormControlSelect1">Upload Document</label>
-                                    <label class="form-control" for="customFile" placeholder="Upload Document"></label>
+                                    <!-- <label for="exampleFormControlSelect1">Upload Document</label>
                                     <input type="file" class="form-control" id="customFile" @change="onFileSelected" style="display: none">
+                                    <small class="text-danger" v-if="errors.document"> {{ errors.document[0] }} </small>
+                                    <label class="form-control" for="customFile" placeholder="Upload Document"></label> -->
                                     
+                                    <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
+                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <div class="col-md-2">
                                     <br>
@@ -90,9 +94,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-        
-        <div class="row">
             <div class="col-lg-12 mb-4">
                 <!-- Simple Tables -->
                 <div>
@@ -143,10 +144,10 @@
                                         <strong>Rp. {{ subtotal }}</strong>
                                     </li>
                                 </div>
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary">submit</button>
+                                <div class="col-md-6">
+                                    <form @submit.prevent="pengadaanInsert">
+                                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -179,9 +180,8 @@
         data(){
             return{
             form:{
-                supplier_id: null,
-                pilih_gudang: null,
-                input_document: null,
+                supplier: null,
+                nama_gudang: null,
                 status_pengadaan: null,
                 photo: null
             },
@@ -222,28 +222,25 @@
         },
 
         methods:{
-            onFileSelected(event){
+                onFileSelected(event){
                 let file = event.target.files[0];
                 if (file.size > 1048770) {
                 Notification.image_validation()
-                console.log(event.target.result);
-                console.log(event);
                 }else{
                 let reader = new FileReader();
                 reader.onload = event =>{
-                this.form.photo = event.target.result
-                console.log(event.target.result);
-                console.log(event);
+                    this.form.photo = event.target.result
+                    console.log(event.target.result);
                 };
                 reader.readAsDataURL(file);
                 }
             },
 
             pengadaanInsert(){
-                axios.post('/api/pengadaan',this.form)
+                axios.post('/api/pengadaaninsert',this.form)
                 .then(() => {
-                this.$router.push({ name: 'pengadaan'})
-                Notification.success()
+                    Notification.success()
+                    this.$router.push({name: 'order'})
                 })
                 .catch(error =>this.errors = error.response.data.errors)
             },
