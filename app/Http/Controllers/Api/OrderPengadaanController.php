@@ -59,20 +59,13 @@ class OrderPengadaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        // $data = array();
-        // $data[''] = $request->name;
-        // $data['email'] = $request->email;
-        // $data['phone'] = $request->phone;
-        // $data['address'] = $request->address;
-        // $image = $request->newphoto;
 
         $data = array();
         $data['pengadaan_id'] = $request->pengadaan_id;
         $data['nama_gudang'] = $request->nama_gudang;
         $data['supplier'] = $request->supplier;
         $data['status_pengadaan'] = $request->status_pengadaan;
-        $image = $request->newphoto;
+        $image = $request->photo;
 
         if ($image) {
          $position = strpos($image, ';');
@@ -122,18 +115,10 @@ class OrderPengadaanController extends Controller
     {
         //
         $validateData = $request->validate([
+            'nama_gudang' => 'required',
+            'supplier' => 'required',
+            'status_pengadaan' => 'required',
         ]);
-        
-        //benar
-        // $data = array();
-        // $data['pengadaan_id'] = $request->pengadaan_id;
-        // $data['nama_gudang'] = $request->nama_gudang;
-        // $data['supplier'] = $request->supplier;
-        // $data['status_pengadaan'] = $request->status_pengadaan;
-        // $data['document'] = $request->document;
-        
-        // DB::table('order_pengadaans')->insert($data);
-        
         
         if ($request->photo) {
             $position = strpos($request->photo, ';');
@@ -146,6 +131,8 @@ class OrderPengadaanController extends Controller
             $image_url = $upload_path.$name;
             $img->save($image_url);
     
+
+
             $data = array();
             $data['pengadaan_id'] = $request->pengadaan_id;
             $data['nama_gudang'] = $request->nama_gudang;
@@ -153,7 +140,33 @@ class OrderPengadaanController extends Controller
             $data['status_pengadaan'] = $request->status_pengadaan;
             $data['photo'] = $image_url;
             
-            DB::table('order_pengadaans')->insert($data);
+            // DB::table('order_pengadaans')->insert($data);
+            //pembatas
+            $order_id = DB::table('order_pengadaans')->insertGetId($data);
+
+            $contents = DB::table('pengadaans')->get();
+
+            $odata = array();
+            foreach ($contents as $content) {
+            $odata['order_id'] = $order_id;
+            $odata['product_name'] = $content->product_name;
+            $odata['product_id'] = $content->productid_pengadaan;
+            $odata['pro_quantity'] = $content->product_quantity;
+            $odata['product_price'] = $content->selling_price;
+            $odata['sub_total'] = $content->sub_total;
+            DB::table('order_details')->insert($odata); 
+
+            
+                DB::table('products')
+                    ->where('id',$content->productid_pengadaan)
+                    ->update(['product_quantity' => DB::raw('product_quantity -' .$content->product_quantity)]);
+
+            }
+            DB::table('pengadaans')->delete();
+            return response('Done');
+            //pembatas
+
+
         }else{
             $data = array();
             $data['pengadaan_id'] = $request->pengadaan_id;
@@ -161,61 +174,31 @@ class OrderPengadaanController extends Controller
             $data['supplier'] = $request->supplier;
             $data['status_pengadaan'] = $request->status_pengadaan;
             
-            DB::table('order_pengadaans')->insert($data);
+            // DB::table('order_pengadaans')->insert($data);
    
+            //pembatas
+            $order_id = DB::table('order_pengadaans')->insertGetId($data);
+
+            $contents = DB::table('pengadaans')->get();
+
+            $odata = array();
+            foreach ($contents as $content) {
+            $odata['order_id'] = $order_id;
+            $odata['product_name'] = $content->product_name;
+            $odata['product_id'] = $content->productid_pengadaan;
+            $odata['pro_quantity'] = $content->product_quantity;
+            $odata['product_price'] = $content->selling_price;
+            $odata['sub_total'] = $content->sub_total;
+            DB::table('order_details')->insert($odata); 
+
+            
+                DB::table('products')
+                    ->where('id',$content->productid_pengadaan)
+                    ->update(['product_quantity' => DB::raw('product_quantity -' .$content->product_quantity)]);
+
+            }
+            DB::table('pengadaans')->delete();
+            return response('Done');
         }
-
-        //document
-        // if ($request->document) {
-        //     $position = strpos($request->document, ';');
-        //     $sub = substr($request->document, 0, $position);
-        //     $ext = explode('/', $sub)[1];
-   
-        //     $name = time().".".$ext;
-        //     $img = Image::make($request->document)->resize(240,200);
-        //     $upload_path = 'backend/orderpengadaan/';
-        //     $document_url = $upload_path.$name;
-        //     $img->save($document_url);
-   
-        //     $orderpengadaan = new OrderPengadaan;
-        //     $orderpengadaan->pengadaan_id = $request->pengadaan_id;
-        //     $orderpengadaan->nama_gudang = $request->nama_gudang;
-        //     $orderpengadaan->supplier = $request->supplier;
-        //     $orderpengadaan->status_pengadaan = $request->status_pengadaan;
-        //     $orderpengadaan->document = $document_url;
-            
-        //     $orderpengadaan->save(); 
-        // }else{
-        //     $orderpengadaan = new OrderPengadaan;
-        //     $orderpengadaan->pengadaan_id = $request->pengadaan_id;
-        //     $orderpengadaan->nama_gudang = $request->nama_gudang;
-        //     $orderpengadaan->supplier = $request->supplier;
-        //     $orderpengadaan->status_pengadaan = $request->status_pengadaan;
-            
-        //     $orderpengadaan->save(); 
-   
-        // }
-
-
-        //pembatas
-        // $contents = DB::table('pengadaans')->get();
-
-        // $data2 = array();
-        // foreach ($contents as $content) {
-        // $data2['order_id'] = $order_id;
-        // $data2['product_id'] = $content->pro_id;
-        // $data2['pro_quantity'] = $content->pro_quantity;
-        // $data2['product_price'] = $content->product_price;
-        // $data2['sub_total'] = $content->sub_total;
-        // DB::table('order_details')->insert($data2); 
-
-        
-        //     DB::table('products')
-        //         ->where('id',$content->pro_id)
-        //         ->update(['product_quantity' => DB::raw('product_quantity -' .$content->pro_quantity)]);
-
-        // }
-        // DB::table('pos')->delete();
-        // return response('Done');
     }
 }

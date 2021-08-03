@@ -33,6 +33,7 @@
                                             Gudang 3
                                         </option>
                                     </select>
+                                    <small class="text-danger" v-if="errors.nama_gudang"> {{ errors.nama_gudang[0] }} </small>
                                     <!-- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH GUDANG" v-model="form.pilih_gudang"> -->
                                 </div>
                                 <div class="col-md-4">
@@ -40,6 +41,7 @@
                                     <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier">
                                     <option v-for="supplier in suppliers" :key="supplier.id">{{ supplier.name }}</option>
                                     </select>
+                                    <small class="text-danger" v-if="errors.supplier"> {{ errors.supplier[0] }} </small>
                                 </div> 
                             </div>
                         </div>
@@ -58,16 +60,17 @@
                                             baru
                                         </option>
                                     </select>
+                                    <small class="text-danger" v-if="errors.status_pengadaan"> {{ errors.status_pengadaan[0] }} </small>
                                 </div>
                                 <div class="col-md-6">
-                                    <!-- <label for="exampleFormControlSelect1">Upload Document</label>
+                                    <label for="exampleFormControlSelect1">Upload Document</label>
                                     <input type="file" class="form-control" id="customFile" @change="onFileSelected" style="display: none">
-                                    <small class="text-danger" v-if="errors.document"> {{ errors.document[0] }} </small>
-                                    <label class="form-control" for="customFile" placeholder="Upload Document"></label> -->
-                                    
-                                    <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
                                     <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                    <label class="form-control" for="customFile" placeholder="Upload Document"></label>
+                                    
+                                    <!-- <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
+                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
+                                    <label class="custom-file-label" for="customFile">Choose file</label> -->
                                 </div>
                                 <div class="col-md-2">
                                     <br>

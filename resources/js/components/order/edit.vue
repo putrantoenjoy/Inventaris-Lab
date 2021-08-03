@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <br>
-                                    <img :src="form.document" style="height: 50px; width: 50px;">
+                                    <img :src="form.photo" style="height: 50px; width: 50px;">
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
             }else{
               let reader = new FileReader();
               reader.onload = event =>{
-                this.form.newphoto = event.target.result
+                this.form.photo = event.target.result
               
               };
               reader.readAsDataURL(file);
