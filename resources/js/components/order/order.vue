@@ -38,6 +38,7 @@
                   <td>{{orderpengadaan.supplier}}</td>
                   <td><img :src="orderpengadaan.photo" id="em_photo"></td>
                   <td>
+                    <router-link :to="{name: 'view-order', params:{id:orderpengadaan.id}}" class="btn btn-sm btn-primary">View</router-link>
                     <router-link :to="{name: 'edit-order', params:{id:orderpengadaan.id}}" class="btn btn-sm btn-primary">Edit</router-link>
                     <a @click="deleteOrderPengadaan(orderpengadaan.id)" class="btn btn-sm btn-danger"><font color="#ffffff">Hapus</font></a>
                   </td>
@@ -48,24 +49,6 @@
           <div class="card-footer">
             <div class="form-group">
               <div class="form-row">
-                  <!-- <div class="col-md-5">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">Catatan:
-                          <strong>{{ catatan }}</strong>
-                      </li>
-                  </div>
-                  <div class="col-md-3">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">Jumlah Barang:
-                          <strong>{{ qty }}</strong>
-                      </li>
-                  </div>
-                  <div class="col-md-3">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">Total Harga:
-                          <strong>Rp. {{ subtotal }}</strong>
-                      </li>
-                  </div> -->
-                  <div class="col-md-12">
-                      <button class="btn btn-primary btn-block">View</button>
-                  </div>
               </div>
           </div>
           </div>
