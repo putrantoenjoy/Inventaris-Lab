@@ -26,6 +26,12 @@ class OrderController extends Controller
     return response()->json($pengadaan, $penga); 
   }
 
+  public function vieworder($id)
+    {
+      $view = DB::table('order_details')->where('order_id',$id)->first();
+      return response()->json($view);
+    }
+
   public function TodayOrder(){
     
     $data = date('d/m/Y');

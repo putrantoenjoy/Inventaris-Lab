@@ -130,7 +130,7 @@
         product_name: null,
         product_code: null,
         category_id: null,
-        supplier_id: 1,
+        supplier_id: null,
         root: null,
         buying_price: null,
         selling_price: null,

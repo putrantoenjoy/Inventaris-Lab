@@ -23,12 +23,17 @@ Route::apiResource('/product', 'Api\ProductController');
 Route::apiResource('/expense', 'Api\ExpenseController');
 Route::apiResource('/customer', 'Api\CustomerController');
 Route::apiResource('/pengadaan', 'Api\PengadaanController');
+Route::apiResource('/orderpengadaan', 'Api\OrderPengadaanController');
 
 //add to pengadaan detail
 Route::Get('/addToDetail/{id}', 'Api\PengadaanDetailController@AddToDetail');
 Route::Get('/increment/pengadaan/{id}', 'Api\PengadaanDetailController@increment');
 Route::Get('/decrement/pengadaan/{id}', 'Api\PengadaanDetailController@decrement');
 Route::Get('/remove/pengadaan/{id}', 'Api\PengadaanDetailController@removePengadaan');
+
+//order pengadaan
+Route::Post('/pengadaaninsert', 'Api\OrderPengadaanController@pengadaanInsert');
+
 
 Route::Post('/salary/paid/{id}', 'Api\SalaryController@Paid');
 Route::Get('/salary', 'Api\SalaryController@AllSalary');
@@ -59,7 +64,8 @@ Route::Post('/orderdone', 'Api\PosController@OrderDone');
 Route::Get('/orders', 'Api\OrderController@TodayOrder');
 
 Route::Get('/order/details/{id}', 'Api\OrderController@OrderDetails');
-Route::Get('/order/orderdetails/{id}', 'Api\OrderController@OrderDetailsAll');
+Route::Get('/order/orderdetails/{id}', 'Api\OrderController@vieworder');
+// Route::Get('/order/orderdetails/{id}', 'Api\OrderController@OrderDetailsAll');
 
 Route::Post('/search/order', 'Api\PosController@SearchOrderDate');
 

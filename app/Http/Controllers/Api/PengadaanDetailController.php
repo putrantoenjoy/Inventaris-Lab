@@ -127,8 +127,4 @@ class PengadaanDetailController extends Controller
   }
 
 
-//   public function Vats(){
-//   	$vat = DB::table('extra')->first();
-//   	return response()->json($vat);
-//   }
 }

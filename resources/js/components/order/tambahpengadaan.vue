@@ -3,7 +3,10 @@
 <template>
     
     <div>
-        
+        <div>
+            <router-link to="/order" class="btn btn-primary">Order Pengadaan</router-link>
+        </div>
+        <br>
         <div class="row">
             <div class="col-lg-12 mb-4">
                 <!-- Simple Tables -->
@@ -11,32 +14,34 @@
                     <div class="py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">TAMBAH PENGADAAN</h6>
                     </div>
-                    <form   enctype="multipart/form-data" class="user">
+                    <form @submit.prevent="pengadaanInsert">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <label for="exampleFormControlSelect1">Pilih Gudang</label>
-                                    <select id="exampleFormControlSelect1" class="form-control" placeholder="PILIH STATUS PENGADAAN" v-model="form.pilih_gudang">
+                                    <select id="exampleFormControlSelect1" class="form-control" placeholder="PILIH STATUS PENGADAAN" v-model="form.nama_gudang">
                                         <option value="null" selected hidden disabled>
                                             PILIH GUDANG
                                         </option>
-                                        <option value="1">
+                                        <option value="Gudang 1">
                                             Gudang 1
                                         </option>
-                                        <option value="2">
+                                        <option value="Gudang 2">
                                             Gudang 2
                                         </option>
-                                        <option value="3">
+                                        <option value="Gudang 3">
                                             Gudang 3
                                         </option>
                                     </select>
+                                    <small class="text-danger" v-if="errors.nama_gudang"> {{ errors.nama_gudang[0] }} </small>
                                     <!-- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="PILIH GUDANG" v-model="form.pilih_gudang"> -->
                                 </div>
                                 <div class="col-md-4">
                                     <label for="exampleFormControlSelect1">Product Supplier</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
-                                    <option value="supplier.name" v-for="supplier in suppliers" :key="supplier.id">{{ supplier.name }}</option>
+                                    <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier">
+                                    <option v-for="supplier in suppliers" :key="supplier.id">{{ supplier.name }}</option>
                                     </select>
+                                    <small class="text-danger" v-if="errors.supplier"> {{ errors.supplier[0] }} </small>
                                 </div> 
                             </div>
                         </div>
@@ -48,23 +53,24 @@
                                         <option value="null" selected hidden disabled>
                                             PILIH STATUS PENGADAAN
                                         </option>
-                                        <option value="1">
-                                            benda cair
+                                        <option value="lama">
+                                            lama
                                         </option>
-                                        <option value="2">
-                                            benda padat
-                                        </option>
-                                        <option value="3">
-                                            benda gas
+                                        <option value="baru">
+                                            baru
                                         </option>
                                     </select>
+                                    <small class="text-danger" v-if="errors.status_pengadaan"> {{ errors.status_pengadaan[0] }} </small>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlSelect1">Upload Document</label>
-                                    <label class="form-control" for="customFile" placeholder="Upload Document">{{form.photo ? form.photo.name :''}}</label>
                                     <input type="file" class="form-control" id="customFile" @change="onFileSelected" style="display: none">
-                                    <!-- <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small> -->
+                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
+                                    <label class="form-control" for="customFile" placeholder="Upload Document"></label>
                                     
+                                    <!-- <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
+                                    <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
+                                    <label class="custom-file-label" for="customFile">Choose file</label> -->
                                 </div>
                                 <div class="col-md-2">
                                     <br>
@@ -86,34 +92,11 @@
                         </div>
                         <div class="form-group">
                             <!-- <button type="submit" class="btn btn-primary">submit</button> -->
-                            <button class="btn btn-primary" v-for="product in products" @click.prevent="AddToDetail(product.id)">{{product.product_name}}</button>
+                            <button class="btn btn-primary" v-for="product in products" @click.prevent="AddToDetail(product.id)" :key="product.id">{{product.product_name}}</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-        <!-- <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-6" v-for="product in products" :key="product.id">
-                <button class="btn btn-sm" @click.prevent="AddToDetail(product.id)">
-                <div class="card" style="width: 8.5rem; margin-bottom: 5px;">
-                    <img :src="product.image" id="em_photo" class="card-img-top">
-                    <div class="card-body">
-                    <h6 class="card-title">{{ product.product_name }}</h6>
-                    <span class="badge badge-success" v-if="product.product_quantity  >= 1 ">Available {{ product.product_quantity }}  </span> 
-                    <span class="badge badge-danger" v-else=" ">Stock Out </span>
-                    </div>
-                </div>
-                </button>
-            </div>
-        </div>
-        <form @submit.prevent="AddToDetail(product.id)">
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option value="product.product_name" v-for="product in products" :key="product.id">{{ product.product_name }}</option>
-            </select>
-            <button class="btn btn-sm" >submit</button>
-        </form> -->
-        
-        <div class="row">
             <div class="col-lg-12 mb-4">
                 <!-- Simple Tables -->
                 <div>
@@ -135,7 +118,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="pengadaan in filtersearch" :key="pengadaan.id">
-                                        <td>{{ pengadaan.product_name }}</td>
+                                        <td >{{ pengadaan.product_name }}</td>
                                         <td>{{ pengadaan.product_code }}</td>
                                         <td><input type="text" readonly="" style="width: 40px;" :value="pengadaan.product_quantity">
                                             <button @click.prevent="increment(pengadaan.id)" class="btn btn-sm btn-success">+</button>
@@ -163,6 +146,11 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center">Total Harga:
                                         <strong>Rp. {{ subtotal }}</strong>
                                     </li>
+                                </div>
+                                <div class="col-md-6">
+                                    <form @submit.prevent="pengadaanInsert">
+                                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -195,9 +183,8 @@
         data(){
             return{
             form:{
-                supplier_id: null,
-                pilih_gudang: null,
-                input_document: null,
+                supplier: null,
+                nama_gudang: null,
                 status_pengadaan: null,
                 photo: null
             },
@@ -238,31 +225,28 @@
         },
 
         methods:{
-            onFileSelected(event){
+                onFileSelected(event){
                 let file = event.target.files[0];
                 if (file.size > 1048770) {
                 Notification.image_validation()
-                console.log(event.target.result);
-                console.log(event);
                 }else{
                 let reader = new FileReader();
                 reader.onload = event =>{
-                this.form.photo = event.target.result
-                console.log(event.target.result);
-                console.log(event);
+                    this.form.photo = event.target.result
+                    console.log(event.target.result);
                 };
                 reader.readAsDataURL(file);
                 }
             },
 
-            // pengadaanInsert(){
-            //     axios.post('/api/pengadaan',this.form)
-            //     .then(() => {
-            //     this.$router.push({ name: 'pengadaan'})
-            //     Notification.success()
-            //     })
-            //     .catch(error =>this.errors = error.response.data.errors)
-            // },
+            pengadaanInsert(){
+                axios.post('/api/pengadaaninsert',this.form)
+                .then(() => {
+                    Notification.success()
+                    this.$router.push({name: 'order'})
+                })
+                .catch(error =>this.errors = error.response.data.errors)
+            },
 
             //detail
             AddToDetail(id){

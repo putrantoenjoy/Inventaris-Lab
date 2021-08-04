@@ -197,8 +197,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
            
    <router-link class="collapse-item" to="/pengadaan">Tambah Pengadaan</router-link>
-   <router-link class="collapse-item" to="/order">Today Order</router-link>
-   <router-link class="collapse-item" to="/searchorder">Search</router-link>
+   <router-link class="collapse-item" to="/order">Semua Pengadaan</router-link>
+   <!-- <router-link class="collapse-item" to="/searchorder">Search</router-link> -->
             
           </div>
         </div>

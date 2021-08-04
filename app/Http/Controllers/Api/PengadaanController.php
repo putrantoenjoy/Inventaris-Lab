@@ -39,17 +39,19 @@ class PengadaanController extends Controller
     {
         //
         $validateData = $request->validate([
-            // 'details' => 'required',
-            // 'amount' => 'required',
-           ]);
+        ]);
    
-            // $expense = new Expense;
-            // $expense->details = $request->details;
-            // $expense->amount = $request->amount;
-            // $expense->expense_date = date('d/m/y');
-            
-            // $expense->save(); 
+        $datap = array();
+        $datap['supplierid_pengadaan'] = $request->supplierid_pengadaan;
+        $datap['supplier_name'] = $request->supplier_name;
+        $datap['gudangid_pengadaan'] = $request->gudangid_pengadaan;
+        $datap['nama_gudang'] = $request->nama_gudang;
+        $datap['status_pengadaan'] = $request->status_pengadaan;
+        $datap['document'] = $request->document;
         
+        DB::table('pengadaans')->insert($datap);
+        // $donep = DB::table('pengadaans')->insertGetId($datap);
+            
     }
 
     /**
