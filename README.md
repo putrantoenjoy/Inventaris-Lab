@@ -11,15 +11,15 @@
 
 Langkah-langkah intallasi :
 
-Buat database
+Buat database, lalu...
 Copy file .env.example menjadi .env lalu sesuaikan user, password, dan database
 Kemudian eksekusi perintah berikut di terminal/command prompt
 
--composer update
--npm install && npm run dev
--php artisan migrate
--php artisan key:generate
--php artisan jwt:secret
+$ composer update
+$ npm install && npm run dev
+$ php artisan migrate
+$ php artisan key:generate
+$ php artisan jwt:secret
 
 ## About Laravel
 
