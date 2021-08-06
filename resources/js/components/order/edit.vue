@@ -175,60 +175,7 @@
      
             },
 
-            //detail
-            // AddToDetail(id){
-            // axios.get('/api/addToDetail/'+id)
-            //     .then(() => {
-            //         Reload.$emit('AfterAdd');
-            //         Notification.success()
-            //     })
-            //     .catch()
-            // },
-
-            // allPengadaan(){
-            //     axios.get('/api/pengadaan/')
-            //     .then(({data}) => (this.pengadaans = data))
-            //     .catch()
-            // },
-
-            // removeDetail(id){
-            // axios.get('/api/remove/pengadaan/'+id)
-            //     .then(() => {
-            //         Reload.$emit('AfterAdd');
-            //     })
-            //     .catch()
-            // },
-            // increment(id){
-            // axios.get('/api/increment/pengadaan/'+id)
-            //     .then(() => {
-            //         Reload.$emit('AfterAdd');
-            //         Notification.success()
-            //     })
-            //     .catch()
-            // },
-            // decrement(id){
-            //     axios.get('/api/decrement/pengadaan/'+id)
-            //     .then(() => {
-            //         Reload.$emit('AfterAdd');
-            //         Notification.success()
-            //     })
-            //     .catch() 
-            // }, 
-
         },
-
-        // created(){
-        // this.allPengadaan();
-        // Reload.$on('AfterAdd',() =>{
-        //     this.allPengadaan();
-        // })
-
-        // axios.get('/api/supplier/')
-        // .then(({data}) => (this.suppliers = data))
-
-        // axios.get('/api/product/')
-        // .then(({data}) => (this.products = data))
-        // }
 
     } 
 </script>

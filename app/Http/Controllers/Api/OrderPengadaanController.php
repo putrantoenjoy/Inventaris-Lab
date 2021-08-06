@@ -65,7 +65,7 @@ class OrderPengadaanController extends Controller
         $data['nama_gudang'] = $request->nama_gudang;
         $data['supplier'] = $request->supplier;
         $data['status_pengadaan'] = $request->status_pengadaan;
-        $image = $request->photo;
+        $image = $request->newphoto;
 
         if ($image) {
          $position = strpos($image, ';');

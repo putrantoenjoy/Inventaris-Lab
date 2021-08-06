@@ -4480,44 +4480,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     })["catch"](function (error) {
       return _this5.errors = error.response.data.errors;
     });
-  } //detail
-  // AddToDetail(id){
-  // axios.get('/api/addToDetail/'+id)
-  //     .then(() => {
-  //         Reload.$emit('AfterAdd');
-  //         Notification.success()
-  //     })
-  //     .catch()
-  // },
-  // allPengadaan(){
-  //     axios.get('/api/pengadaan/')
-  //     .then(({data}) => (this.pengadaans = data))
-  //     .catch()
-  // },
-  // removeDetail(id){
-  // axios.get('/api/remove/pengadaan/'+id)
-  //     .then(() => {
-  //         Reload.$emit('AfterAdd');
-  //     })
-  //     .catch()
-  // },
-  // increment(id){
-  // axios.get('/api/increment/pengadaan/'+id)
-  //     .then(() => {
-  //         Reload.$emit('AfterAdd');
-  //         Notification.success()
-  //     })
-  //     .catch()
-  // },
-  // decrement(id){
-  //     axios.get('/api/decrement/pengadaan/'+id)
-  //     .then(() => {
-  //         Reload.$emit('AfterAdd');
-  //         Notification.success()
-  //     })
-  //     .catch() 
-  // }, 
-
+  }
 }), _created$data$compute);
 
 /***/ }),
@@ -4598,6 +4561,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -4609,6 +4575,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       order_pengadaans: [],
+      order_details: [],
       searchTerm: ''
     };
   },
@@ -4659,7 +4626,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }
 }, "created", function created() {
+  var _this4 = this;
+
   this.allOrderPengadaan();
+  this.allOrderdetails();
+  Reload.$on('AfterAdd', function () {
+    _this4.allOrderdetails();
+  });
 }));
 
 /***/ }),
@@ -5158,6 +5131,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _created$created$data;
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -5213,48 +5188,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
+//
+/* harmony default export */ __webpack_exports__["default"] = (_created$created$data = {
   created: function created() {
     if (!User.loggedIn()) {
       this.$router.push({
         name: '/'
       });
     }
-  },
-  // created(){
-  // this.DetailProduct();
-  // Reload.$on('AfterAdd',() =>{
-  //     this.PengadaanDetail();
-  //     })
-  // },
-  data: function data() {
-    return {
-      order_details: [],
-      errors: {}
-    };
-  },
-  computed: {
-    filtersearch: function filtersearch() {
-      var _this = this;
-
-      return this.order_details.filter(function (orderdetail) {
-        return orderdetail.order_id.match(_this.searchTerm);
-      });
-    }
-  },
-  methods: {
-    allOrderdetail: function allOrderdetail() {
-      var _this2 = this;
-
-      axios.get('/api/order/orderdetails/{id}/').then(function (_ref) {
-        var data = _ref.data;
-        return _this2.order_details = data;
-      })["catch"]();
-    }
   }
-}, "created", function created() {
-  this.allOrderdetail();
-}));
+}, _defineProperty(_created$created$data, "created", function created() {
+  var _this = this;
+
+  Reload.$on('AfterAdd', function () {
+    _this.allOrderdetail();
+  });
+}), _defineProperty(_created$created$data, "data", function data() {
+  return {
+    order_details: [],
+    pengadaans: [],
+    errors: {},
+    searchTerm: ''
+  };
+}), _defineProperty(_created$created$data, "computed", {
+  filtersearch: function filtersearch() {
+    var _this2 = this;
+
+    return this.order_details.filter(function (orderdetail) {
+      return orderdetail.order_id.match(_this2.searchTerm);
+    });
+  }
+}), _defineProperty(_created$created$data, "methods", {
+  allOrderdetail: function allOrderdetail(id) {
+    axios.get('/api/order/details/' + id).then(function () {
+      Reload.$emit('AfterAdd');
+      Notification.success();
+    })["catch"]();
+  },
+  // AddToDetail(id){
+  // axios.get('/api/addToDetail/'+id)
+  //     .then(() => {
+  //         Reload.$emit('AfterAdd');
+  //         Notification.success()
+  //     })
+  //     .catch()
+  // },
+  allPengadaan: function allPengadaan() {
+    var _this3 = this;
+
+    axios.get('/api/pengadaan/').then(function (_ref) {
+      var data = _ref.data;
+      return _this3.pengadaans = data;
+    })["catch"]();
+  }
+}), _defineProperty(_created$created$data, "created", function created() {
+  // this.allOrderdetail();
+  this.allPengadaan();
+}), _created$created$data);
 
 /***/ }),
 
@@ -55084,20 +55074,6 @@ var render = function() {
                               staticClass: "btn btn-sm btn-primary",
                               attrs: {
                                 to: {
-                                  name: "view-order",
-                                  params: { id: orderpengadaan.id }
-                                }
-                              }
-                            },
-                            [_vm._v("View")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn btn-sm btn-primary",
-                              attrs: {
-                                to: {
                                   name: "edit-order",
                                   params: { id: orderpengadaan.id }
                                 }
@@ -56049,41 +56025,7 @@ var render = function() {
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12 mb-4" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              { staticClass: "table align-items-center table-flush" },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.filtersearch, function(orderpengadaan) {
-                    return _c("tr", { key: orderpengadaan.id }, [
-                      _c("td", [_vm._v(_vm._s(orderpengadaan.product_name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(orderpengadaan.pro_quantity))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(orderpengadaan.product_price))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(orderpengadaan.sub_total))])
-                    ])
-                  }),
-                  0
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _vm._m(2)
-        ])
-      ])
-    ])
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
@@ -56091,42 +56033,50 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "card-header py-3 d-flex flex-row align-items-center justify-content-between"
-      },
-      [
-        _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-          _vm._v("Order Pengadaan")
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12 mb-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+            },
+            [
+              _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+                _vm._v("Order Pengadaan")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _c("thead", { staticClass: "thead-light" }, [
+                  _c("tr", [
+                    _c("th", [_vm._v("Nama Produk")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Jumlah")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Harga")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Total Harga")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("tbody")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-row" })
+            ])
+          ])
         ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", [_vm._v("Nama Produk")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Jumlah")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Harga")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total Harga")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("div", { staticClass: "form-row" })
       ])
     ])
   }
