@@ -38,7 +38,7 @@
                   <td>{{orderpengadaan.supplier}}</td>
                   <td><img :src="orderpengadaan.photo" id="em_photo"></td>
                   <td>
-                    <router-link :to="{name: 'view-order', params:{id:orderpengadaan.id}}" class="btn btn-sm btn-primary">View</router-link>
+                    <!-- <button class="btn btn-sm btn-primary" @click.prevent="allOrderdetails(orderpengadaan.id)" :key="orderpengadaan.id">View</button> -->
                     <router-link :to="{name: 'edit-order', params:{id:orderpengadaan.id}}" class="btn btn-sm btn-primary">Edit</router-link>
                     <a @click="deleteOrderPengadaan(orderpengadaan.id)" class="btn btn-sm btn-danger"><font color="#ffffff">Hapus</font></a>
                   </td>
@@ -46,6 +46,9 @@
               </tbody>
             </table>
           </div>
+          <!-- <div>
+            <button class="btn btn-primary" v-for="orderpengadaan in order_pengadaans" @click.prevent="allOrderdetails(orderpengadaan.id)" :key="orderpengadaan.id">{{orderpengadaan.nama_gudang}}</button>
+          </div> -->
           <div class="card-footer">
             <div class="form-group">
               <div class="form-row">
@@ -74,6 +77,7 @@
     data(){
       return{
         order_pengadaans:[],
+        order_details:[],
         searchTerm:''
       }
     },
@@ -121,14 +125,17 @@
       }
     })
 
-  }
+  },
    
 
   },
   created(){
     this.allOrderPengadaan();
-  } 
-  
+    this.allOrderdetails();
+        Reload.$on('AfterAdd',() =>{
+            this.allOrderdetails();
+        })
+  }
 
   } 
 </script>

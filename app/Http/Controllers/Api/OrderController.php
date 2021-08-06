@@ -8,16 +8,6 @@ use DB;
 
 class OrderController extends Controller
 {
-  // public function TambahPengadaan(){
-    
-  //   $data = date('d/m/Y');
-  //   $order = DB::table('orders')
-  //     ->join('customers','orders.customer_id','customers.id')
-  //     ->where('order_date',$data)
-  //     ->select('customers.name','orders.*')
-  //     ->orderBy('orders.id','DESC')->get();
-  //     return response()->json($order); 
-  // }
   
   public function TambahPengadaan(){
     $pagename = 'TAMBAH PENGADAAn';
@@ -43,7 +33,24 @@ class OrderController extends Controller
   }
 
 
-   public function OrderDetails($id){
+  //orderdetails
+  //  public function OrderDetails($id){
+  //  	$orderdpengadaan = DB::table('order_details');
+  //   // ->select('product_name','pro_quantity','product_price','sub_total')
+  //   // ->where('orders_id', $id)
+  //   // ->first();
+  //   return response()->json($orderpengadaan);
+
+  //  }
+
+   public function OrderDetails($id)
+    {
+      $product = DB::table('order_details')
+      ->where('order_id',$id)->first();
+      return response()->json($product);
+    }
+
+   public function viewOrderDetails($id){
    	//return response()->json($id);
    	$order = DB::table('orders')
    	  ->join('customers','orders.customer_id','customers.id')

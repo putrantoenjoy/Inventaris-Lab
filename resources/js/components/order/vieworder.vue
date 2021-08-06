@@ -25,12 +25,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="orderpengadaan in filtersearch" :key="orderpengadaan.id">
+                    <!-- <tr v-for="orderpengadaan in order_details" :key="orderpengadaan.id">
                       <td>{{orderpengadaan.product_name}}</td>
                       <td>{{orderpengadaan.pro_quantity}}</td>
                       <td>{{orderpengadaan.product_price}}</td>
                       <td>{{orderpengadaan.sub_total}}</td>
-                    </tr>
+                      
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -59,17 +60,18 @@
             }
         },
 
-        // created(){
-        // this.DetailProduct();
-        // Reload.$on('AfterAdd',() =>{
-        //     this.PengadaanDetail();
-        //     })
-        // },
+        created(){
+        Reload.$on('AfterAdd',() =>{
+            this.allOrderdetail();
+            })
+        },
 
         data(){
             return{
             order_details:[],
+            pengadaans:[],
             errors:{},
+            searchTerm:''
             }
         },
         computed:{
@@ -81,16 +83,33 @@
         },
 
         methods:{
-             allOrderdetail(){
-                axios.get('/api/order/orderdetails/{id}/')
-                .then(({data}) => (this.order_details = data))
+             allOrderdetail(id){
+                axios.get('/api/order/details/'+id)
+                .then(() => {
+                    Reload.$emit('AfterAdd');
+                    Notification.success()
+                })
+                .catch()
+            },
+            // AddToDetail(id){
+            // axios.get('/api/addToDetail/'+id)
+            //     .then(() => {
+            //         Reload.$emit('AfterAdd');
+            //         Notification.success()
+            //     })
+            //     .catch()
+            // },
+            allPengadaan(){
+                axios.get('/api/pengadaan/')
+                .then(({data}) => (this.pengadaans = data))
                 .catch()
             },
 
         },
 
         created(){
-        this.allOrderdetail();
+        // this.allOrderdetail();
+        this.allPengadaan();
         }
 
     } 
