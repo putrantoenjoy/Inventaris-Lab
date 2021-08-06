@@ -7,6 +7,20 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Inventaris-Lab
+
+Langkah-langkah intallasi :
+
+Buat database
+Copy file .env.example menjadi .env lalu sesuaikan user, password, dan database
+Kemudian eksekusi perintah berikut di terminal/command prompt
+
+-composer update
+-npm install && npm run dev
+-php artisan migrate
+-php artisan key:generate
+-php artisan jwt:secret
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
