@@ -56,6 +56,8 @@ class SupplierController extends Controller
          $supplier->address = $request->address;
          $supplier->photo = $image_url;
          $supplier->save(); 
+
+         return response()->json($supplier);
      }else{
          $supplier = new Supplier;
          $supplier->name = $request->name;
@@ -65,6 +67,8 @@ class SupplierController extends Controller
          $supplier->address = $request->address;
         
          $supplier->save(); 
+
+         return response()->json($supplier);
 
      } 
 
