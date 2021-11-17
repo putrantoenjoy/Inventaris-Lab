@@ -76,6 +76,8 @@ class PengadaanDetailController extends Controller
         $subtotal = $product->product_quantity * $product->selling_price;
         DB::table('pengadaans')->where('productid_pengadaan',$id)->update(['sub_total'=> $subtotal]);
 
+        return response()->json($product);
+
     	}else{
     	$data = array();
     	$data['productid_pengadaan'] = $id;
@@ -86,6 +88,8 @@ class PengadaanDetailController extends Controller
     	$data['sub_total'] = $product->selling_price;
 
     	DB::table('pengadaans')->insert($data);
+
+        return response()->json($data);
     	}
 
     	
