@@ -39,6 +39,7 @@
                   <td><img :src="orderpengadaan.photo" id="em_photo"></td>
                   <td>
                     <!-- <button class="btn btn-sm btn-primary" @click.prevent="allOrderdetails(orderpengadaan.id)" :key="orderpengadaan.id">View</button> -->
+                    <router-link :to="{name: 'order/view', params:{id:orderpengadaan.id}}" class="btn btn-sm btn-success">View</router-link>
                     <router-link :to="{name: 'edit-order', params:{id:orderpengadaan.id}}" class="btn btn-sm btn-primary">Edit</router-link>
                     <a @click="deleteOrderPengadaan(orderpengadaan.id)" class="btn btn-sm btn-danger"><font color="#ffffff">Hapus</font></a>
                   </td>

@@ -4564,6 +4564,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -55068,6 +55069,20 @@ var render = function() {
                       _c(
                         "td",
                         [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "btn btn-sm btn-success",
+                              attrs: {
+                                to: {
+                                  name: "order/view",
+                                  params: { id: orderpengadaan.id }
+                                }
+                              }
+                            },
+                            [_vm._v("View")]
+                          ),
+                          _vm._v(" "),
                           _c(
                             "router-link",
                             {
