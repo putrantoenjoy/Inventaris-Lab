@@ -37,7 +37,9 @@ class CategoryController extends Controller
          $category = new Category;
          $category->category_name = $request->category_name;
          
-         $category->save();  
+         $category->save(); 
+         
+         return response()->json($category);
     }
 
     /**
@@ -66,6 +68,8 @@ class CategoryController extends Controller
         $data = array();
         $data['category_name'] =  $request->category_name;
         DB::table('categories')->where('id',$id)->update($data);
+
+        return response()->json($data);
     }
 
     /**

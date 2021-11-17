@@ -70,6 +70,8 @@ class ProductController extends Controller
          $product->product_quantity = $request->product_quantity;
          $product->image = $image_url;
          $product->save(); 
+
+         return response()->json($product);
      }else{
         $product = new Product;
          $product->category_id = $request->category_id;
@@ -83,6 +85,8 @@ class ProductController extends Controller
          $product->product_quantity = $request->product_quantity;
          
          $product->save(); 
+
+         return response()->json($product);
 
      } 
  
@@ -148,7 +152,9 @@ class ProductController extends Controller
             $oldphoto = $request->image;
             $data['image'] = $oldphoto;
             $user = DB::table('products')->where('id',$id)->update($data);
+
         }
+        return response()->json($data);
     }
 
     /**
