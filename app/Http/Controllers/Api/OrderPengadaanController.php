@@ -46,8 +46,8 @@ class OrderPengadaanController extends Controller
     public function show($id)
     {
         //
-        // $orderpengadaan = DB::table('order_pengadaans')->where('id',$id)->first();
-        // return response()->json($orderpengadaan);
+        $orderpengadaan = DB::table('order_pengadaans')->where('id',$id)->first();
+        return response()->json($orderpengadaan);
     }
 
     /**

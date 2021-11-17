@@ -5190,6 +5190,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_created$created$data = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -5218,15 +5221,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return this.order_details.filter(function (orderdetail) {
       return orderdetail.order_id.match(_this2.searchTerm);
     });
+  },
+  subtotal: function subtotal() {
+    var sum = 0;
+
+    for (var i = 0; i < this.order_details.length; i++) {
+      sum += parseFloat(this.order_details[i].pro_quantity) * parseFloat(this.order_details[i].product_price);
+    }
+
+    return sum;
   }
 }), _defineProperty(_created$created$data, "methods", {
-  allOrderdetail: function allOrderdetail(id) {
-    axios.get('/api/order/details/' + id).then(function () {
-      Reload.$emit('AfterAdd');
-      Notification.success();
+  OrderDetailsAll: function OrderDetailsAll() {
+    var _this3 = this;
+
+    var id = this.$route.params.id;
+    axios.get('/api/order/orderdetails/' + id) // .then(() => {
+    //     Reload.$emit('AfterAdd');
+    //     Notification.success()
+    // })
+    // .catch()
+    // axios.get('/api/orderpengadaan/')
+    // .then(({data}) => (this.form = data))
+    // .catch(console.log('error'))
+    .then(function (_ref) {
+      var data = _ref.data;
+      return _this3.order_details = data;
     })["catch"]();
-  },
-  // AddToDetail(id){
+  } // AddToDetail(id){
   // axios.get('/api/addToDetail/'+id)
   //     .then(() => {
   //         Reload.$emit('AfterAdd');
@@ -5234,17 +5256,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   //     })
   //     .catch()
   // },
-  allPengadaan: function allPengadaan() {
-    var _this3 = this;
+  // allPengadaan(){
+  //     axios.get('/api/pengadaan/')
+  //     .then(({data}) => (this.pengadaans = data))
+  //     .catch()
+  // },
 
-    axios.get('/api/pengadaan/').then(function (_ref) {
-      var data = _ref.data;
-      return _this3.pengadaans = data;
-    })["catch"]();
-  }
 }), _defineProperty(_created$created$data, "created", function created() {
-  // this.allOrderdetail();
-  this.allPengadaan();
+  this.OrderDetailsAll(); // this.allPengadaan();
 }), _created$created$data);
 
 /***/ }),
@@ -55075,7 +55094,7 @@ var render = function() {
                               staticClass: "btn btn-sm btn-success",
                               attrs: {
                                 to: {
-                                  name: "order/view",
+                                  name: "view-order",
                                   params: { id: orderpengadaan.id }
                                 }
                               }
@@ -56040,7 +56059,59 @@ var render = function() {
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12 mb-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.order_details, function(orderpengadaan) {
+                    return _c("tr", { key: orderpengadaan.id }, [
+                      _c("td", [_vm._v(_vm._s(orderpengadaan.product_name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(orderpengadaan.pro_quantity))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(orderpengadaan.product_price))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(orderpengadaan.sub_total))])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "li",
+                    {
+                      staticClass:
+                        "list-group-item d-flex justify-content-between align-items-center"
+                    },
+                    [
+                      _vm._v("Total Harga:\n                          "),
+                      _c("strong", [_vm._v("Rp. " + _vm._s(_vm.subtotal))])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -56048,50 +56119,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12 mb-4" }, [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "card-header py-3 d-flex flex-row align-items-center justify-content-between"
-            },
-            [
-              _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-                _vm._v("Order Pengadaan")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              { staticClass: "table align-items-center table-flush" },
-              [
-                _c("thead", { staticClass: "thead-light" }, [
-                  _c("tr", [
-                    _c("th", [_vm._v("Nama Produk")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Jumlah")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Harga")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Total Harga")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody")
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("div", { staticClass: "form-row" })
-            ])
-          ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+      },
+      [
+        _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+          _vm._v("Order Pengadaan")
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Nama Produk")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Jumlah")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Harga")])
       ])
     ])
   }

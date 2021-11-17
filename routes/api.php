@@ -65,7 +65,7 @@ Route::Get('/orders', 'Api\OrderController@TodayOrder');
 
 Route::Get('/order/details/{id}', 'Api\OrderController@OrderDetails');
 Route::Get('/order/orderdetails/{id}', 'Api\OrderController@vieworder');
-// Route::Get('/order/orderdetails/{id}', 'Api\OrderController@OrderDetailsAll');
+Route::Get('/order/orderdetails/{id}', 'Api\OrderController@OrderDetailsAll');
 
 Route::Post('/search/order', 'Api\PosController@SearchOrderDate');
 

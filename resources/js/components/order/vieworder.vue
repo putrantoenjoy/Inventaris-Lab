@@ -25,20 +25,23 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- <tr v-for="orderpengadaan in order_details" :key="orderpengadaan.id">
+                    <tr v-for="orderpengadaan in order_details" :key="orderpengadaan.id">
                       <td>{{orderpengadaan.product_name}}</td>
                       <td>{{orderpengadaan.pro_quantity}}</td>
                       <td>{{orderpengadaan.product_price}}</td>
                       <td>{{orderpengadaan.sub_total}}</td>
-                      
-                    </tr> -->
+                    </tr>
                   </tbody>
                 </table>
               </div>
               <div class="card-footer">
                 <div class="form-group">
                   <div class="form-row">
-                      
+                      <div class="col-md-12">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">Total Harga:
+                              <strong>Rp. {{ subtotal }}</strong>
+                          </li>
+                      </div>
                   </div>
               </div>
               </div>
@@ -79,16 +82,35 @@
         return this.order_details.filter(orderdetail => {
             return orderdetail.order_id.match(this.searchTerm)
         }) 
+        },
+
+        subtotal(){
+            let sum = 0;
+            for(let i = 0; i < this.order_details.length; i++){
+            sum += (parseFloat(this.order_details[i].pro_quantity) * parseFloat(this.order_details[i].product_price));      
         }
+            return sum;
+
+        },
         },
 
         methods:{
-             allOrderdetail(id){
-                axios.get('/api/order/details/'+id)
-                .then(() => {
-                    Reload.$emit('AfterAdd');
-                    Notification.success()
-                })
+             OrderDetailsAll(){
+               let id = this.$route.params.id
+                axios.get('/api/order/orderdetails/'+id)
+                // .then(() => {
+                //     Reload.$emit('AfterAdd');
+                //     Notification.success()
+                // })
+                // .catch()
+
+                // axios.get('/api/orderpengadaan/')
+
+
+                // .then(({data}) => (this.form = data))
+                // .catch(console.log('error'))
+
+                .then(({data}) => (this.order_details = data))
                 .catch()
             },
             // AddToDetail(id){
@@ -99,17 +121,17 @@
             //     })
             //     .catch()
             // },
-            allPengadaan(){
-                axios.get('/api/pengadaan/')
-                .then(({data}) => (this.pengadaans = data))
-                .catch()
-            },
+            // allPengadaan(){
+            //     axios.get('/api/pengadaan/')
+            //     .then(({data}) => (this.pengadaans = data))
+            //     .catch()
+            // },
 
         },
 
         created(){
-        // this.allOrderdetail();
-        this.allPengadaan();
+        this.OrderDetailsAll();
+        // this.allPengadaan();
         }
 
     } 
